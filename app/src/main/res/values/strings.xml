@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Samir\'s Attendance App</string>
+
+    <string name="first_name_hint">First Name</string>
+    <string name="last_name_hint">Last Name</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="confirm_password_hint">Confirm Password</string>
+    <string name="register_button">Register</string>
+    <string name="login_button">Login</string>
+
 </resources>

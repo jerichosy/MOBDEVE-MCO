@@ -9,18 +9,19 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnGetAccount;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        btnGetAccount = (Button) findViewById(R.id.btnGetAccount);
     }
 
-    public void getAccount(View v) {
+    public void onRegister(View v) {
         Intent i = new Intent(this, RegisterActivity.class);
+        startActivity(i);
+    }
+
+    public void onLogin(View v) {
+        Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
     }
 }

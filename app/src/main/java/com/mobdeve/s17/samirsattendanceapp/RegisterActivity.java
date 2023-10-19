@@ -14,18 +14,18 @@ public class RegisterActivity extends AppCompatActivity {
     EditText editTextLastName;
     EditText editTextEmail;
     EditText editTextPassword;
-    Button btnRegister;
+    EditText editTextConfirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
 
-        editTextFirstName = (EditText) findViewById(R.id.editTextFirstName);
-        editTextLastName = (EditText) findViewById(R.id.editTextLastName);
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        btnRegister = (Button) findViewById(R.id.btnRegister);
+        editTextFirstName = (EditText) findViewById(R.id.register_et_firstName);
+        editTextLastName = (EditText) findViewById(R.id.register_et_lastName);
+        editTextEmail = (EditText) findViewById(R.id.register_et_email);
+        editTextPassword = (EditText) findViewById(R.id.register_et_password);
+        editTextConfirmPassword = (EditText) findViewById(R.id.register_et_confirmPassword);
     }
 
     public void onRegister(View v) {
