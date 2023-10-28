@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobdeve.s17.samirsattendanceapp.ClassData;
 import com.mobdeve.s17.samirsattendanceapp.databinding.FragmentSettingsBinding;
@@ -18,6 +19,7 @@ import com.mobdeve.s17.samirsattendanceapp.ui.leaderboard.LeaderboardAdapter;
 public class SettingsFragment extends Fragment {
 
     private FragmentSettingsBinding binding;
+    private RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -28,7 +30,7 @@ public class SettingsFragment extends Fragment {
         View root = binding.getRoot();
 
         // Initialize the RecyclerView and your custom adapter
-        recyclerView = binding.rvLeaderboardList; // Make sure you have 'recyclerView' in your fragment_home.xml
+        recyclerView = binding.rvSettingsList; // Make sure you have 'recyclerView' in your fragment_home.xml
         ClassData[] settingsData = new ClassData[]{ // temporary use class data since its placeholders
                 new ClassData("Create Class", ""),
                 new ClassData("Join Class", ""),

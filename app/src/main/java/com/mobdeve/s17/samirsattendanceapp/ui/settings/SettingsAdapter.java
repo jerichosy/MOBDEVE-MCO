@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobdeve.s17.samirsattendanceapp.ClassData;
 import com.mobdeve.s17.samirsattendanceapp.R;
-import com.mobdeve.s17.samirsattendanceapp.ui.settings;
 
-public class SettingsAdapter {
+public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder>{
 
     ClassData[] settingsData;
 
@@ -33,8 +32,7 @@ public class SettingsAdapter {
     @Override
     public void onBindViewHolder(@NonNull SettingsAdapter.ViewHolder holder, int position) {
         final ClassData classDataList = settingsData[position];
-        holder.studentName.setText(classDataList.getClassName());
-        holder.attendance.setText(classDataList.getClassSchedule());
+        holder.settingName.setText(classDataList.getClassName());
     }
 
     @Override
