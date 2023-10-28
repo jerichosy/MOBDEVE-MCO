@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -32,6 +33,8 @@ public class RegisterActivity extends AppCompatActivity {
         Intent i = new Intent(this, LoginActivity.class);
 
         // Code here to check input, insert DB
+        Toast.makeText(this, "Registration successful! Please login.", Toast.LENGTH_SHORT).show();
+        finish();
         startActivity(i);
     }
 }

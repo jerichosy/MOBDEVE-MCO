@@ -65,6 +65,7 @@
             android:id="@+id/register_btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onRegister"
             android:text="@string/register_button" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
