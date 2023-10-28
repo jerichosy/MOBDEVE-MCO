@@ -1,5 +1,6 @@
 package com.mobdeve.s17.samirsattendanceapp.ui.settings;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobdeve.s17.samirsattendanceapp.ClassData;
 import com.mobdeve.s17.samirsattendanceapp.R;
+import com.mobdeve.s17.samirsattendanceapp.CreateClass;
 //import com.mobdeve.s17.samirsattendanceapp.ui.settings;
 
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder>{
@@ -34,6 +36,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     public void onBindViewHolder(@NonNull SettingsAdapter.ViewHolder holder, int position) {
         final ClassData settingsDataList = settingsData[position];
         holder.settingName.setText(settingsDataList.getClassName());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent i = new Intent(v.getContext(), CreateClass.class);
+            v.getContext().startActivity(i);
+        });
     }
 
     @Override
