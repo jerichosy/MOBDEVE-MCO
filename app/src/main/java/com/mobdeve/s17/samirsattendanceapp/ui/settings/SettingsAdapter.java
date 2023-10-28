@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobdeve.s17.samirsattendanceapp.ClassData;
 import com.mobdeve.s17.samirsattendanceapp.R;
-import com.mobdeve.s17.samirsattendanceapp.ui.settings;
+//import com.mobdeve.s17.samirsattendanceapp.ui.settings;
 
-public class SettingsAdapter {
+public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder>{
 
     ClassData[] settingsData;
 
@@ -25,16 +25,15 @@ public class SettingsAdapter {
     public SettingsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         // TODO: Not sure if importing R like this instead of using context.getResources().getStringArray(R...) is okay
-        View view = inflater.inflate(R.layout.leaderboard_item_list, parent, false);
+        View view = inflater.inflate(R.layout.settings_item_list, parent, false);
         SettingsAdapter.ViewHolder viewHolder = new SettingsAdapter.ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull SettingsAdapter.ViewHolder holder, int position) {
-        final ClassData classDataList = settingsData[position];
-        holder.studentName.setText(classDataList.getClassName());
-        holder.attendance.setText(classDataList.getClassSchedule());
+        final ClassData settingsDataList = settingsData[position];
+        holder.settingName.setText(settingsDataList.getClassName());
     }
 
     @Override
