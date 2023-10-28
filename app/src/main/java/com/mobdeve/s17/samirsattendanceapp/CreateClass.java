@@ -20,7 +20,7 @@ public class CreateClass extends AppCompatActivity {
 
         et_className = (EditText) findViewById(R.id.et_className);
         et_maxMembers = (EditText) findViewById(R.id.et_maxMembers);
-        et_classSchedule = (EditText) findViewById(R.id.et_classSchedule);
+        et_classSchedule = (EditText) findViewById(R.id.et_scheduleTime);
         btn_createClass = (Button) findViewById(R.id.btn_createClass);
         btn_createClass.setOnClickListener(v -> {
             Toast.makeText(getApplicationContext(), "Class created!", Toast.LENGTH_SHORT).show();
