@@ -1,5 +1,6 @@
 package com.mobdeve.s17.samirsattendanceapp.ui.home;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobdeve.s17.samirsattendanceapp.ClassData;
+import com.mobdeve.s17.samirsattendanceapp.ClassDetailsActivity;
 import com.mobdeve.s17.samirsattendanceapp.R;
 
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHolder> {
@@ -34,6 +36,16 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
         final ClassData classDataList = classData[position];
         holder.className.setText(classDataList.getClassName());
         holder.classSchedule.setText(classDataList.getClassSchedule());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), ClassDetailsActivity.class);
+                i.putExtra("className", classDataList.getClassName());
+                i.putExtra("classSchedule", classDataList.getClassSchedule());
+                v.getContext().startActivity(i);
+            }
+        });
     }
 
     @Override
