@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class CreateClass extends AppCompatActivity {
+public class ClassCreateActivity extends AppCompatActivity {
 
     EditText et_className;
     EditText et_maxMembers;
@@ -16,7 +16,7 @@ public class CreateClass extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_class);
+        setContentView(R.layout.activity_class_create);
 
         et_className = (EditText) findViewById(R.id.et_className);
         et_maxMembers = (EditText) findViewById(R.id.et_maxMembers);
