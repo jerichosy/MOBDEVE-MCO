@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Code here to check input, insert DB
         Toast.makeText(this, "Registration successful! Please login.", Toast.LENGTH_SHORT).show();
-        finish();
         startActivity(i);
+        finish();
     }
 }
