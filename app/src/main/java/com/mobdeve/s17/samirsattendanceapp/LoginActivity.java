@@ -13,10 +13,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        getSupportActionBar().hide();
     }
 
     public void onLogin(View v) {
-        Intent i = new Intent(this, LoginActivity.class);
+        Intent i = new Intent(this, HomeActivity.class);
         startActivity(i);
     }
 }

@@ -8,5 +8,9 @@
     <string name="confirm_password_hint">Confirm Password</string>
     <string name="register_button">Register</string>
     <string name="login_button">Login</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>
