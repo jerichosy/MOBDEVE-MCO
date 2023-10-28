@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         // Initialize the RecyclerView and your custom adapter
-        recyclerView = binding.rvClassesNext; // Make sure you have 'recyclerView' in your fragment_home.xml
+        recyclerView = binding.rvClassList; // Make sure you have 'recyclerView' in your fragment_home.xml
         ClassData[] classData = new ClassData[]{
             new ClassData("STINTSY S14", "MH 9:15-10:45"),
             new ClassData("CSOPESY S13", "S 9:15-12:30")
