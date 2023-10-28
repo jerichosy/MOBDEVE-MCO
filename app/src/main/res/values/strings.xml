@@ -10,7 +10,7 @@
     <string name="login_button">Login</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_leaderboard">Leaderboard</string>
     <string name="title_settings">Settings</string>
 
 </resources>

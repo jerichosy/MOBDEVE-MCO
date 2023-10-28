@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.mobdeve.s17.samirsattendanceapp.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_leaderboard"
+        android:name="com.mobdeve.s17.samirsattendanceapp.ui.leaderboard.LeaderboardFragment"
+        android:label="@string/title_leaderboard"
+        tools:layout="@layout/fragment_leaderboard" />
 
     <fragment
         android:id="@+id/navigation_settings"
