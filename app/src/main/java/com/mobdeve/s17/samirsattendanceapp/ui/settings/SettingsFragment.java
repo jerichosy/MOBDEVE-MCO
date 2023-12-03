@@ -12,7 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mobdeve.s17.samirsattendanceapp.ClassData;
+import com.mobdeve.s17.samirsattendanceapp.ClassCreateActivity;
+import com.mobdeve.s17.samirsattendanceapp.SettingsData;
 import com.mobdeve.s17.samirsattendanceapp.databinding.FragmentSettingsBinding;
 import com.mobdeve.s17.samirsattendanceapp.ui.leaderboard.LeaderboardAdapter;
 
@@ -31,11 +32,12 @@ public class SettingsFragment extends Fragment {
 
         // Initialize the RecyclerView and your custom adapter
         recyclerView = binding.rvSettingsList; // Make sure you have 'recyclerView' in your fragment_home.xml
-        ClassData[] settingsData = new ClassData[]{ // temporary use class data since its placeholders
-                new ClassData("Create Class", ""),
-                new ClassData("Join Class", ""),
-                new ClassData("Edit Class", ""),
-                new ClassData("Settings", "")
+        SettingsData[] settingsData = new SettingsData[]{ // temporary use class data since its placeholders
+                new SettingsData("Create Class", ClassCreateActivity.class),
+                new SettingsData("Join Class"),
+                new SettingsData("Edit Class"),
+                new SettingsData("Settings"),
+                new SettingsData("Logout")
         };
         SettingsAdapter adapter = new SettingsAdapter(settingsData); // Initialize your adapter, here an empty list is passed
 
