@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -76,10 +79,23 @@ public class RegisterActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // If register fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Exception exception = task.getException();
+                            if (exception instanceof FirebaseAuthUserCollisionException) {
+                                Toast.makeText(RegisterActivity.this, "Email already exists.",
+                                        Toast.LENGTH_SHORT).show();
+                            } else if (exception instanceof FirebaseAuthWeakPasswordException) {
+                                Toast.makeText(RegisterActivity.this, "Password must be at least 6 characters.",
+                                        Toast.LENGTH_SHORT).show();
+                            } else if (exception instanceof FirebaseAuthInvalidCredentialsException) {
+                                Toast.makeText(RegisterActivity.this, "Invalid email.",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                // General authentication failure message
+                                Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                             updateUI(null);
                         }
                     }
