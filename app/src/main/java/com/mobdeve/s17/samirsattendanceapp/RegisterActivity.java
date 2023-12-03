@@ -58,6 +58,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onRegister(View v) {
+        if (editTextFirstName.getText().toString().isEmpty() || editTextLastName.getText().toString().isEmpty() || editTextEmail.getText().toString().isEmpty() || editTextPassword.getText().toString().isEmpty() || editTextConfirmPassword.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (!isMatchingPassword()) {
             Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
             return;
