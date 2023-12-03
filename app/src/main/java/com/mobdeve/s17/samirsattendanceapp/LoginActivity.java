@@ -49,6 +49,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLogin(View v) {
+        if (email.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
