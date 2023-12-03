@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
@@ -65,8 +67,20 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Exception exception = task.getException();
+                            if (exception instanceof FirebaseAuthInvalidCredentialsException) {
+                                // If the password is incorrect or the email is formatted incorrectly
+                                Toast.makeText(LoginActivity.this, "Invalid credentials. Please try again.",
+                                        Toast.LENGTH_SHORT).show();
+                            } else if (exception instanceof FirebaseAuthInvalidUserException) {
+                                // If the user corresponding to the email does not exist or has been disabled
+                                Toast.makeText(LoginActivity.this, "Invalid user. Account may be disabled or not exist.",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                // Other errors could be related to network issues, etc.
+                                Toast.makeText(LoginActivity.this, "Login failed. Maybe check your connection and try again.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                             updateUI(null);
                         }
                     }
