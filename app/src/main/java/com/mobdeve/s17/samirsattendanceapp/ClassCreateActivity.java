@@ -44,6 +44,7 @@ public class ClassCreateActivity extends AppCompatActivity {
             new_class.put("members", currentMembers);
             new_class.put("schedule", classSchedule);
             new_class.put("join_code", classCode);
+            new_class.put("creator", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
             db.collection("classes").add(new_class).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
