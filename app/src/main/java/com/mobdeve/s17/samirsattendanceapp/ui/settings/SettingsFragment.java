@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobdeve.s17.samirsattendanceapp.ClassCreateActivity;
+import com.mobdeve.s17.samirsattendanceapp.ClassJoinActivity;
 import com.mobdeve.s17.samirsattendanceapp.SettingsData;
 import com.mobdeve.s17.samirsattendanceapp.databinding.FragmentSettingsBinding;
 import com.mobdeve.s17.samirsattendanceapp.ui.leaderboard.LeaderboardAdapter;
@@ -34,7 +35,7 @@ public class SettingsFragment extends Fragment {
         recyclerView = binding.rvSettingsList; // Make sure you have 'recyclerView' in your fragment_home.xml
         SettingsData[] settingsData = new SettingsData[]{ // temporary use class data since its placeholders
                 new SettingsData("Create Class", ClassCreateActivity.class),
-                new SettingsData("Join Class"),
+                new SettingsData("Join Class", ClassJoinActivity.class),
                 new SettingsData("Edit Class"),
                 new SettingsData("Settings"),
                 new SettingsData("Logout")

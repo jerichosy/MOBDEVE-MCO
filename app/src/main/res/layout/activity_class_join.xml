@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ClassJoinActivity">
+
+    <ImageView
+        android:id="@+id/register_iv_logo"
+        android:layout_width="match_parent"
+        android:layout_height="208dp"
+        app:srcCompat="@drawable/samirs_attendance_app_logo" />
+
+    <EditText
+        android:id="@+id/et_join_code_input"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:ems="10"
+        android:fadingEdge="horizontal"
+        android:foregroundGravity="center_vertical"
+        android:gravity="center"
+        android:hint="Class Join Code"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/btn_join_class"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:text="Join Class" />
+</LinearLayout>
