@@ -55,6 +55,38 @@ public class ClassData {
         this.schedule = classSchedule;
     }
 
+    public int getClassCapacity() {
+        return capacity;
+    }
+
+    public void setClassCapacity(int classCapacity) {
+        this.capacity = classCapacity;
+    }
+
+    public int getClassMemberCount() {
+        return members;
+    }
+
+    public void setClassMemberCount(int classMemberCount) {
+        this.members = classMemberCount;
+    }
+
+    public String getClassJoinCode() {
+        return join_code;
+    }
+
+    public void setClassJoinCode(String classJoinCode) {
+        this.join_code = classJoinCode;
+    }
+
+    public String getClassCreator() {
+        return creator;
+    }
+
+    public void setClassCreator(String classCreator) {
+        this.creator = classCreator;
+    }
+
     @Override
     public String toString() {
         return "Class Name: " + name;
