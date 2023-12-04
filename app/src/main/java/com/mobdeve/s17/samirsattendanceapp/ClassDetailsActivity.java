@@ -45,7 +45,9 @@ public class ClassDetailsActivity extends AppCompatActivity {
         btnAttend.setOnClickListener(v -> {
             mAuth = FirebaseAuth.getInstance();
             db = FirebaseFirestore.getInstance();
-            db.collection("attendance").add(new AttendanceData(Objects.requireNonNull(mAuth.getCurrentUser()).getUid(), join_code));
+            String uid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+            String display_name = Objects.requireNonNull(mAuth.getCurrentUser()).getDisplayName();
+            db.collection("attendance").add(new AttendanceData(uid, display_name, join_code));
             Toast.makeText(getApplicationContext(), "Attendance recorded!", Toast.LENGTH_SHORT).show();
             finish();
         });
