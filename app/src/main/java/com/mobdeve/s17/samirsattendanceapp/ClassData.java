@@ -3,10 +3,16 @@ package com.mobdeve.s17.samirsattendanceapp;
 public class ClassData {
     private String className;  // this includes the section
     private String classSchedule;
+    private int capacity;
+    private int members;
+    private String joinCode;
 
-    public ClassData(String className, String classSchedule) {
+    public ClassData(String className, String classSchedule, int capacity, int members, String joinCode) {
         this.className = className;
         this.classSchedule = classSchedule;
+        this.capacity = capacity;
+        this.members = members;
+        this.joinCode = joinCode;
     }
 
     public String getClassName() {
