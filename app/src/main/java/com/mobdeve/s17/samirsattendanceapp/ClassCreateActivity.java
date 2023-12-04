@@ -46,6 +46,7 @@ public class ClassCreateActivity extends AppCompatActivity {
             new_class.put("schedule", classSchedule);
             new_class.put("join_code", classCode);
             new_class.put("creator", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
+            new_class.put("creator_display_name", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
 
             db.collection("classes").add(new_class).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override

@@ -7,6 +7,7 @@ public class ClassData {
     private int members;
     private String join_code;
     private String creator;
+    private String creator_display_name;
 
     public ClassData() {
         // empty constructor needed for firebase
@@ -19,15 +20,17 @@ public class ClassData {
         this.members = 0;
         this.join_code = "";
         this.creator = "yes";
+        this.creator_display_name = "";
     }
 
-    public ClassData(String className, String classSchedule, int capacity, int members, String joinCode) {
+    public ClassData(String className, String classSchedule, int capacity, int members, String joinCode, String creator, String creator_display_name) {
         this.name = className;
         this.schedule = classSchedule;
         this.capacity = capacity;
         this.members = members;
         this.join_code = joinCode;
-        this.creator = "yes";
+        this.creator = creator;
+        this.creator_display_name = creator_display_name;
     }
 
     public ClassData(String className, String classSchedule, int capacity, int members, String joinCode, String creator) {
@@ -37,6 +40,7 @@ public class ClassData {
         this.members = members;
         this.join_code = joinCode;
         this.creator = creator;
+        this.creator_display_name = "";
     }
 
     public String getClassName() {
@@ -81,6 +85,10 @@ public class ClassData {
 
     public String getClassCreator() {
         return creator;
+    }
+
+    public String getClassCreatorDisplayName() {
+        return creator_display_name;
     }
 
     @Override
