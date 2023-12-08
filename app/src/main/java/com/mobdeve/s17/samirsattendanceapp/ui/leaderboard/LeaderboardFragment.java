@@ -49,7 +49,7 @@ public class LeaderboardFragment extends Fragment {
         sw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sw.setText(sw.isChecked() ? "Hall of Fame" : "Hall of Shame");
+                sw.setText(sw.isChecked() ? "Hall of Shame" : "Hall of Fame");
             }
         });
 
