@@ -10,14 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobdeve.s17.samirsattendanceapp.ClassData;
 import com.mobdeve.s17.samirsattendanceapp.R;
+import com.mobdeve.s17.samirsattendanceapp.StudentRecord;
 
 import org.w3c.dom.Text;
 
 public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.ViewHolder> {
 
-    ClassData[] leaderboardData;
+    StudentRecord[] leaderboardData;
 
-    public LeaderboardAdapter(ClassData[] leaderboardData) {
+    public LeaderboardAdapter(StudentRecord[] leaderboardData) {
         this.leaderboardData = leaderboardData;
     }
 
@@ -33,9 +34,9 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull LeaderboardAdapter.ViewHolder holder, int position) {
-        final ClassData classDataList = leaderboardData[position];
-        holder.studentName.setText(classDataList.getClassName());
-        holder.attendance.setText(classDataList.getClassSchedule());
+        final StudentRecord classDataList = leaderboardData[position];
+        holder.studentName.setText(classDataList.getStudentName());
+        holder.attendance.setText(String.valueOf(classDataList.getPresent()));
     }
 
     @Override
