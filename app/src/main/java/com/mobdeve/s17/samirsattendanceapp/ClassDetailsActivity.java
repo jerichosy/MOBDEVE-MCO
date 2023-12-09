@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -25,6 +26,10 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.compass.CompassOverlay;
+import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -41,7 +46,8 @@ public class ClassDetailsActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private MapView osmMapView;
     private MapController osmController;
-    private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
+    private MyLocationNewOverlay osmOverlay;
+    private CompassOverlay osmCompass;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -79,12 +85,21 @@ public class ClassDetailsActivity extends AppCompatActivity {
         osmController = (MapController) osmMapView.getController();
         osmMapView.setBuiltInZoomControls(true);
         osmMapView.setMultiTouchControls(true);
+
+        // Center Map
         IMapController mapController = osmMapView.getController();
-        mapController.setZoom(9.5);
+        mapController.setZoom(12.5);
         GeoPoint startPoint = new GeoPoint(14.599512, 120.984222);
         mapController.setCenter(startPoint);
-    }
 
+        // MyLocationOverlay
+        osmOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(ctx), osmMapView);
+        osmOverlay.enableMyLocation();
+        osmMapView.getOverlays().add(osmOverlay);
+        osmCompass = new CompassOverlay(ctx, new InternalCompassOrientationProvider(ctx), osmMapView);
+        osmCompass.enableCompass();
+        osmMapView.getOverlays().add(this.osmCompass);
+    }
 
     @Override
     public void onResume() {
@@ -96,37 +111,5 @@ public class ClassDetailsActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         osmMapView.onPause();  //needed for compass, my location overlays, v6.0.0 and up
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        ArrayList<String> permissionsToRequest = new ArrayList<>();
-        for (int i = 0; i < grantResults.length; i++) {
-            permissionsToRequest.add(permissions[i]);
-        }
-        if (permissionsToRequest.size() > 0) {
-            ActivityCompat.requestPermissions(
-                    this,
-                    permissionsToRequest.toArray(new String[0]),
-                    REQUEST_PERMISSIONS_REQUEST_CODE);
-        }
-    }
-
-    private void requestPermissionsIfNecessary(String[] permissions) {
-        ArrayList<String> permissionsToRequest = new ArrayList<>();
-        for (String permission : permissions) {
-            if (ContextCompat.checkSelfPermission(this, permission)
-                    != PackageManager.PERMISSION_GRANTED) {
-                // Permission is not granted
-                permissionsToRequest.add(permission);
-            }
-        }
-        if (permissionsToRequest.size() > 0) {
-            ActivityCompat.requestPermissions(
-                    this,
-                    permissionsToRequest.toArray(new String[0]),
-                    REQUEST_PERMISSIONS_REQUEST_CODE);
-        }
     }
 }
