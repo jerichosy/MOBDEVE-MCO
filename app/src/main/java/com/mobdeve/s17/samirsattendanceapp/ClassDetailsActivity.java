@@ -47,7 +47,6 @@ public class ClassDetailsActivity extends AppCompatActivity {
     private MapView osmMapView;
     private MapController osmController;
     private MyLocationNewOverlay osmOverlay;
-    private CompassOverlay osmCompass;
 
     @SuppressLint("SetTextI18n")
     @Override
