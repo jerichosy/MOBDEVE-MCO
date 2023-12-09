@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobdeve.s17.samirsattendanceapp.ClassData;
+import com.mobdeve.s17.samirsattendanceapp.StudentRecord;
 import com.mobdeve.s17.samirsattendanceapp.databinding.FragmentLeaderboardBinding;
 import com.mobdeve.s17.samirsattendanceapp.ui.home.ClassAdapter;
 
@@ -32,9 +33,9 @@ public class LeaderboardFragment extends Fragment {
 
         // Initialize the RecyclerView and your custom adapter
         recyclerView = binding.rvLeaderboardList; // Make sure you have 'recyclerView' in your fragment_home.xml
-        ClassData[] leaderboardData = new ClassData[]{ // temporary use class data since its placeholders
-                new ClassData("Samir Car Driver", "50"),
-                new ClassData("Vladimir Cyka Rush", "48")
+        StudentRecord[] leaderboardData = new StudentRecord[]{ // temporary use class data since its placeholders
+                new StudentRecord("Samir Car Driver", 50, 10),
+                new StudentRecord("Vladimir Cyka Rush", 48, 8)
         };
         LeaderboardAdapter adapter = new LeaderboardAdapter(leaderboardData); // Initialize your adapter, here an empty list is passed
 
@@ -49,7 +50,7 @@ public class LeaderboardFragment extends Fragment {
         sw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sw.setText(sw.isChecked() ? "Hall of Fame" : "Hall of Shame");
+                sw.setText(sw.isChecked() ? "Hall of Shame" : "Hall of Fame");
             }
         });
 

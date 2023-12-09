@@ -19,6 +19,9 @@
             android:name=".ClassEditActivity"
             android:exported="false" />
         <activity
+            android:name=".ClassJoinActivity"
+            android:exported="false" />
+        <activity
             android:name=".ClassCreateActivity"
             android:exported="false" />
         <activity

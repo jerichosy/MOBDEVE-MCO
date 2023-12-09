@@ -45,6 +45,11 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
                 Intent i = new Intent(v.getContext(), ClassDetailsActivity.class);
                 i.putExtra("className", classData.getClassName());
                 i.putExtra("classSchedule", classData.getClassSchedule());
+                i.putExtra("classCreator", classData.getClassCreator());
+                i.putExtra("classCreatorDisplayName", classData.getClassCreatorDisplayName());
+                i.putExtra("classCapacity", String.valueOf(classData.getClassCapacity()));
+                i.putExtra("classMembers", String.valueOf(classData.getClassMembers()));
+                i.putExtra("classJoinCode", classData.getClassJoinCode());
                 v.getContext().startActivity(i);
             }
         });

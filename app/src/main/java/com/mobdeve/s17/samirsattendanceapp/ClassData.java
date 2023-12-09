@@ -8,6 +8,7 @@ public class ClassData {
     private int members;
     private String join_code;
     private String creator;
+    private String creator_display_name;
 
     public ClassData() {
         // empty constructor needed for firebase
@@ -20,6 +21,7 @@ public class ClassData {
         this.members = 0;
         this.join_code = "";
         this.creator = "yes";
+        this.creator_display_name = "";
     }
 
     public ClassData(String id, String className, String classSchedule, int classCapacity) {
@@ -32,13 +34,14 @@ public class ClassData {
         this.creator = "yes";
     }
 
-    public ClassData(String className, String classSchedule, int capacity, int members, String joinCode) {
+    public ClassData(String className, String classSchedule, int capacity, int members, String joinCode, String creator, String creator_display_name) {
         this.name = className;
         this.schedule = classSchedule;
         this.capacity = capacity;
         this.members = members;
         this.join_code = joinCode;
-        this.creator = "yes";
+        this.creator = creator;
+        this.creator_display_name = creator_display_name;
     }
 
     public ClassData(String className, String classSchedule, int capacity, int members, String joinCode, String creator) {
@@ -48,6 +51,7 @@ public class ClassData {
         this.members = members;
         this.join_code = joinCode;
         this.creator = creator;
+        this.creator_display_name = "";
     }
 
     public String getClassId() {
@@ -90,6 +94,14 @@ public class ClassData {
         this.members = classMemberCount;
     }
 
+    public int getClassMembers() {
+        return members;
+    }
+
+    public void setClassMembers(int classMembers) {
+        this.members = classMembers;
+    }
+
     public String getClassJoinCode() {
         return join_code;
     }
@@ -104,6 +116,10 @@ public class ClassData {
 
     public void setClassCreator(String classCreator) {
         this.creator = classCreator;
+    }
+
+    public String getClassCreatorDisplayName() {
+        return creator_display_name;
     }
 
     @Override
