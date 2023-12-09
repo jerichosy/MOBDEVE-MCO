@@ -93,25 +93,14 @@ public class ClassDetailsActivity extends AppCompatActivity {
         // MyLocationOverlay
         osmOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(ctx), osmMapView);
         osmOverlay.enableMyLocation();
+        osmMapView.getOverlays().add(osmOverlay);
 
         osmOverlay.runOnFirstFix(() -> {
             runOnUiThread(() -> {
                 osmController.animateTo(osmOverlay.getMyLocation());
-                osmController.setZoom(20);
+                osmController.setZoom(17.5);
             });
         });
-
-        osmMapView.getOverlays().add(osmOverlay);
-        LocationManager lm = (LocationManager) getSystemService(ctx.LOCATION_SERVICE);
-        if ( ContextCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-
-            ActivityCompat.requestPermissions( this, new String[] {  Manifest.permission.ACCESS_FINE_LOCATION  },
-                    1);
-        }
-        Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        GeoPoint currentPoint = new GeoPoint(loc.getLatitude(), loc.getLongitude());
-        osmController.animateTo(currentPoint);
-        osmController.setZoom(17.5);
     }
 
     @Override
