@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -81,20 +82,28 @@ public class ClassDetailsActivity extends AppCompatActivity {
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         osmMapView = (MapView) findViewById(R.id.osm_mv_current_loc);
         osmMapView.setTileSource(TileSourceFactory.MAPNIK);
-        osmController = (MapController) osmMapView.getController();
-        osmMapView.setBuiltInZoomControls(true);
         osmMapView.setMultiTouchControls(true);
 
         // Center Map
-        IMapController mapController = osmMapView.getController();
-        mapController.setZoom(12.5);
+        osmController = (MapController) osmMapView.getController();
+        osmController.setZoom(12.5);
         GeoPoint startPoint = new GeoPoint(14.599512, 120.984222);
-        mapController.setCenter(startPoint);
+        osmController.setCenter(startPoint);
 
         // MyLocationOverlay
         osmOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(ctx), osmMapView);
         osmOverlay.enableMyLocation();
         osmMapView.getOverlays().add(osmOverlay);
+        LocationManager lm = (LocationManager) getSystemService(ctx.LOCATION_SERVICE);
+        if ( ContextCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+
+            ActivityCompat.requestPermissions( this, new String[] {  Manifest.permission.ACCESS_FINE_LOCATION  },
+                    1);
+        }
+        Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        GeoPoint currentPoint = new GeoPoint(loc.getLatitude(), loc.getLongitude());
+        osmController.animateTo(currentPoint);
+        osmController.setZoom(17.5);
     }
 
     @Override
