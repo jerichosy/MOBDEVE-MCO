@@ -41,7 +41,7 @@
 
     <Button
         android:id="@+id/btn_attend"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="117dp"
         android:layout_marginTop="317dp"
@@ -90,4 +90,16 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_class_schedule" />
+
+    <org.osmdroid.views.MapView
+        android:id="@+id/osm_mv_current_loc"
+        tilesource="Mapnik"
+        android:layout_width="409dp"
+        android:layout_height="283dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_attend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_current_location" />
 </androidx.constraintlayout.widget.ConstraintLayout>
