@@ -96,9 +96,6 @@ public class ClassDetailsActivity extends AppCompatActivity {
         osmOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(ctx), osmMapView);
         osmOverlay.enableMyLocation();
         osmMapView.getOverlays().add(osmOverlay);
-        osmCompass = new CompassOverlay(ctx, new InternalCompassOrientationProvider(ctx), osmMapView);
-        osmCompass.enableCompass();
-        osmMapView.getOverlays().add(this.osmCompass);
     }
 
     @Override
