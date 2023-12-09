@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobdeve.s17.samirsattendanceapp.ClassCreateActivity;
+import com.mobdeve.s17.samirsattendanceapp.ClassEditActivity;
 import com.mobdeve.s17.samirsattendanceapp.SettingsData;
 import com.mobdeve.s17.samirsattendanceapp.databinding.FragmentSettingsBinding;
 import com.mobdeve.s17.samirsattendanceapp.ui.leaderboard.LeaderboardAdapter;
@@ -35,7 +36,7 @@ public class SettingsFragment extends Fragment {
         SettingsData[] settingsData = new SettingsData[]{ // temporary use class data since its placeholders
                 new SettingsData("Create Class", ClassCreateActivity.class),
                 new SettingsData("Join Class"),
-                new SettingsData("Edit Class"),
+                new SettingsData("Edit Class", ClassEditActivity.class),
                 new SettingsData("Settings"),
                 new SettingsData("Logout")
         };

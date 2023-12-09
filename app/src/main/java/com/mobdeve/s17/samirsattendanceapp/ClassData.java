@@ -1,6 +1,7 @@
 package com.mobdeve.s17.samirsattendanceapp;
 
 public class ClassData {
+    private String id;
     private String name;  // this includes the section
     private String schedule;
     private int capacity;
@@ -16,6 +17,16 @@ public class ClassData {
         this.name = className;
         this.schedule = classSchedule;
         this.capacity = 0;
+        this.members = 0;
+        this.join_code = "";
+        this.creator = "yes";
+    }
+
+    public ClassData(String id, String className, String classSchedule, int classCapacity) {
+        this.id = id;
+        this.name = className;
+        this.schedule = classSchedule;
+        this.capacity = classCapacity;
         this.members = 0;
         this.join_code = "";
         this.creator = "yes";
@@ -37,6 +48,14 @@ public class ClassData {
         this.members = members;
         this.join_code = joinCode;
         this.creator = creator;
+    }
+
+    public String getClassId() {
+        return id;
+    }
+
+    public void setClassId(String id) {
+        this.id = id;
     }
 
     public String getClassName() {
