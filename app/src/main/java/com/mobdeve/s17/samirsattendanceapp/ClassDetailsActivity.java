@@ -95,6 +95,14 @@ public class ClassDetailsActivity extends AppCompatActivity {
         // MyLocationOverlay
         osmOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(ctx), osmMapView);
         osmOverlay.enableMyLocation();
+
+        osmOverlay.runOnFirstFix(() -> {
+            runOnUiThread(() -> {
+                osmController.animateTo(osmOverlay.getMyLocation());
+                osmController.setZoom(20);
+            });
+        });
+
         osmMapView.getOverlays().add(osmOverlay);
     }
 
