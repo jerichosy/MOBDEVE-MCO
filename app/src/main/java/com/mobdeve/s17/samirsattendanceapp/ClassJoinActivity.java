@@ -51,6 +51,12 @@ public class ClassJoinActivity extends AppCompatActivity {
                     return;
                 }
 
+                if (selectedClass.getClassMembers().size() + 1 > selectedClass.getClassCapacity()) {
+                    et_join_code_input.setError("Class is full!");
+                    Toast.makeText(getApplicationContext(), "Class is full!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 // add user to the class if user is not member of class
                 DocumentReference selectedRef = queryDocumentSnapshots.getDocuments().get(0).getReference();
                 selectedRef.update("classMembers", FieldValue.arrayUnion(uid));
