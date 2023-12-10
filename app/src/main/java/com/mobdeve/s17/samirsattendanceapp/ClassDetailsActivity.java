@@ -112,6 +112,8 @@ public class ClassDetailsActivity extends AppCompatActivity {
                 osmController.animateTo(osmOverlay.getMyLocation());
                 osmController.setZoom(17.5);
                 hasLocationFix = true;
+
+                osmOverlay.enableFollowLocation();
             });
         });
     }
