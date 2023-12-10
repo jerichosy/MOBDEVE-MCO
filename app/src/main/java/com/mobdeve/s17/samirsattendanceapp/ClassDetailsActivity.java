@@ -90,18 +90,18 @@ public class ClassDetailsActivity extends AppCompatActivity {
             Date currentDate = new Date();
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.US);
             String date = dateFormat.format(currentDate);
-            db.collection("attendance").whereEqualTo("date", date)
-                    .whereEqualTo("join_code", join_code)
-                    .whereEqualTo("uid", Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).get().addOnCompleteListener(
-                        task -> {
-                            if (task.isSuccessful()) {
-                                if (task.getResult().size() > 0) {
-                                    Toast.makeText(getApplicationContext(), "Attendance already recorded!", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                            }
-                        }
-            );
+//            db.collection("attendance").whereEqualTo("date", date)
+//                    .whereEqualTo("join_code", join_code)
+//                    .whereEqualTo("uid", Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).get().addOnCompleteListener(
+//                        task -> {
+//                            if (task.isSuccessful()) {
+//                                if (task.getResult().size() > 0) {
+//                                    Toast.makeText(getApplicationContext(), "Attendance already recorded!", Toast.LENGTH_SHORT).show();
+//                                    return;
+//                                }
+//                            }
+//                        }
+//            );
 
             mAuth = FirebaseAuth.getInstance();
             db = FirebaseFirestore.getInstance();
