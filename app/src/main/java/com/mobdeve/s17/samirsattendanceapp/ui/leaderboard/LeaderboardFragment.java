@@ -43,17 +43,6 @@ public class LeaderboardFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-//        final TextView textView = binding.textLeaderboard;
-//        leaderboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
-//        Switch sw = binding.switchLeaderboard;
-//        sw.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                sw.setText(sw.isChecked() ? "Hall of Shame" : "Hall of Fame");
-//            }
-//        });
-
         return root;
     }
 

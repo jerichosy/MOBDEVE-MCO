@@ -43,12 +43,6 @@ public class HomeFragment extends Fragment {
         // Initialize the RecyclerView and your custom adapter
         recyclerView = binding.rvClassList; // Make sure you have 'recyclerView' in your fragment_home.xml
 
-//        ClassData[] classData = new ClassData[]{
-//            new ClassData("STINTSY S14", "MH 9:15-10:45", 40, 30, "ABC123"),
-//            new ClassData("CSOPESY S13", "S 9:15-12:30", 40, 20, "ABC234"),
-//        };
-//        ClassAdapter adapter = new ClassAdapter(classData); // Initialize your adapter, here an empty list is passed
-
         ClassAdapter adapter = new ClassAdapter(Arrays.asList(new ClassData[0]));
 
         // Set LayoutManager and Adapter
@@ -102,15 +96,6 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 });
-
-//        final TextView textView = binding.textHome;
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
-//        // Assume you have a method in your ViewModel to fetch list data.
-//        homeViewModel.getData().observe(getViewLifecycleOwner(), data -> {
-//            // Update the data in adapter and notify the adapter for changes.
-//            adapter.updateData(data);
-//        });
 
         return root;
     }
