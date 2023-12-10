@@ -107,11 +107,13 @@ public class ClassDetailsActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         osmMapView.onResume(); //needed for compass, my location overlays, v6.0.0 and up
+        osmOverlay.enableMyLocation();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         osmMapView.onPause();  //needed for compass, my location overlays, v6.0.0 and up
+        osmOverlay.disableMyLocation();
     }
 }
