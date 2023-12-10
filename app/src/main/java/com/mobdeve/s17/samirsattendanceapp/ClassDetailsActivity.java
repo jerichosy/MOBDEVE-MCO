@@ -108,6 +108,22 @@ public class ClassDetailsActivity extends AppCompatActivity {
             String uid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
             String display_name = Objects.requireNonNull(mAuth.getCurrentUser()).getDisplayName();
             db.collection("attendance").add(new AttendanceData(uid, date, display_name, join_code));
+            db.collection("attendance_total")
+                    .whereEqualTo("uid", uid).get().addOnCompleteListener(
+                    task -> {
+                        if (task.isSuccessful()) {
+                            if (task.getResult().size() > 0) {
+                                // update attendance_total
+                                String id = task.getResult().getDocuments().get(0).getId();
+                                int attendance = task.getResult().getDocuments().get(0).getLong("attendance").intValue();
+                                db.collection("attendance_total").document(id).update("attendance", attendance + 1);
+                            } else {
+                                // add new record
+                                db.collection("attendance_total").add(new StudentRecord(display_name, uid, 1));
+                            }
+                        }
+                    }
+            );
             Toast.makeText(getApplicationContext(), "Attendance recorded!", Toast.LENGTH_SHORT).show();
             finish();
         });

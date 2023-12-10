@@ -18,6 +18,7 @@ public class StudentRecord {
     public String getStudentName() {
         return studentName;
     }
+    public String getUid() { return uid; }
 
     public int getAttendance() { return attendance; }
 
