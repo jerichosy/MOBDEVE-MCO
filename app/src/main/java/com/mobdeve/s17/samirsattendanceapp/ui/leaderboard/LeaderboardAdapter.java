@@ -14,12 +14,14 @@ import com.mobdeve.s17.samirsattendanceapp.StudentRecord;
 
 import org.w3c.dom.Text;
 
+import java.util.List;
+
 public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.ViewHolder> {
 
-    StudentRecord[] leaderboardData;
+    List<StudentRecord> leaderboardData;
 
-    public LeaderboardAdapter(StudentRecord[] leaderboardData) {
-        this.leaderboardData = leaderboardData;
+    public LeaderboardAdapter(List<StudentRecord> leaderboardDataList) {
+        this.leaderboardData = leaderboardDataList;
     }
 
     @NonNull
@@ -34,14 +36,14 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull LeaderboardAdapter.ViewHolder holder, int position) {
-        final StudentRecord classDataList = leaderboardData[position];
+        final StudentRecord classDataList = leaderboardData.get(position);
         holder.studentName.setText(classDataList.getStudentName());
         holder.attendance.setText(String.valueOf(classDataList.getAttendance()));
     }
 
     @Override
     public int getItemCount() {
-        return leaderboardData.length;
+        return leaderboardData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -54,5 +56,10 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
             studentName = itemView.findViewById(R.id.studentName);
             attendance = itemView.findViewById(R.id.attendance);
         }
+    }
+
+    public void setLeaderboardData(List<StudentRecord> leaderboardData) {
+        this.leaderboardData = leaderboardData;
+        notifyDataSetChanged();
     }
 }
