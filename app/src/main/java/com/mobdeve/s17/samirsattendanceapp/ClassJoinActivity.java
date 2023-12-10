@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
@@ -31,7 +33,7 @@ public class ClassJoinActivity extends AppCompatActivity {
         btn_join_class.setOnClickListener(v -> {
             String join_code = et_join_code_input.getText().toString();
             // check if join code exists in database
-            db.collection("classes").whereEqualTo("join_code", join_code).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            db.collection("classes").whereEqualTo("classJoinCode", join_code).get().addOnSuccessListener(queryDocumentSnapshots -> {
                 if (queryDocumentSnapshots.isEmpty()) {
                     // join code does not exist
                     et_join_code_input.setError("Join code does not exist!");
@@ -39,26 +41,22 @@ public class ClassJoinActivity extends AppCompatActivity {
                     return;
                 }
 
+                String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+                ClassData selectedClass = queryDocumentSnapshots.toObjects(ClassData.class).get(0);
                 // check if user is already a member of the class
-                db.collection("memberships").whereEqualTo("uid", Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).whereEqualTo("join_code", join_code).get().addOnSuccessListener(queryDocumentSnapshots1 -> {
-                    if (!queryDocumentSnapshots1.isEmpty()) {
-                        // user is already a member of the class
-                        et_join_code_input.setError("You are already a member of this class!");
-                        Toast.makeText(getApplicationContext(), "You are already a member of this class!", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+                if (selectedClass.getClassMembers().contains(uid)) {
+                    // user is already a member of the class
+                    et_join_code_input.setError("You are already a member of this class!");
+                    Toast.makeText(getApplicationContext(), "You are already a member of this class!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                    // add user to the class if user is not member of class
-                    db.collection("memberships").add(new MembershipData(Objects.requireNonNull(mAuth.getCurrentUser()).getUid(), join_code));
-                    db.collection("classes").whereEqualTo("join_code", join_code).get().addOnSuccessListener(queryDocumentSnapshots2 -> {
-                        String class_id = queryDocumentSnapshots2.getDocuments().get(0).getId();
-                        db.collection("classes").document(class_id).update("members", queryDocumentSnapshots2.getDocuments().get(0).getLong("members") + 1);
-                    });
-                    Toast.makeText(getApplicationContext(), "Class joined!", Toast.LENGTH_SHORT).show();
-                    finish();
-                });
+                // add user to the class if user is not member of class
+                DocumentReference selectedRef = queryDocumentSnapshots.getDocuments().get(0).getReference();
+                selectedRef.update("classMembers", FieldValue.arrayUnion(uid));
+                Toast.makeText(getApplicationContext(), "Class joined!", Toast.LENGTH_SHORT).show();
+                finish();
             });
         });
     }
-
 }
