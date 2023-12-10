@@ -61,24 +61,7 @@ public class HomeFragment extends Fragment {
 
                             // Iterate through the query results
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Extract class name and schedule from the document
-                                String className = Objects.requireNonNull(document.getData().get("name")).toString();
-                                String classSchedule = Objects.requireNonNull(document.getData().get("schedule")).toString();
-                                int classCapacity = Integer.parseInt(Objects.requireNonNull(document.getData().get("capacity")).toString());
-                                int classMembers = Integer.parseInt(Objects.requireNonNull(document.getData().get("members")).toString());
-                                String classJoinCode = Objects.requireNonNull(document.getData().get("join_code")).toString();
-                                String classCreator = Objects.requireNonNull(document.getData().get("creator")).toString();
-                                String classCreatorDisplayName = document.getData().get("creator_display_name") == null ?
-                                                                    "" : document.getData().get("creator_display_name").toString();
-                                String classLearningMode = Objects.requireNonNull(document.getData().get("learning_mode")).toString();
-//                                System.out.println("\nwowwwww\n");
-//                                System.out.println(className);
-//                                System.out.println(classSchedule);
-                                System.out.println(document.getData());
-
-                                // Create a new ClassData object with the retrieved data
-                                ClassData classData = new ClassData(className, classSchedule, classCapacity, classMembers, classJoinCode, classCreator, classCreatorDisplayName, classLearningMode);
-
+                                ClassData classData = document.toObject(ClassData.class);
                                 // Add the created ClassData object to the list
                                 classDataList.add(classData);
                             }

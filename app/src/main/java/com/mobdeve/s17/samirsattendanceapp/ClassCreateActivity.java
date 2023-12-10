@@ -40,23 +40,16 @@ public class ClassCreateActivity extends AppCompatActivity {
         btn_createClass = (Button) findViewById(R.id.btn_createClass);
         this.db = FirebaseFirestore.getInstance();
         btn_createClass.setOnClickListener(v -> {
+            String id = java.util.UUID.randomUUID().toString();
             String className = et_className.getText().toString();
             int maxMembers = Integer.parseInt(et_maxMembers.getText().toString());
-            int currentMembers = 0;
             String classSchedule = et_scheduleDays.getText().toString() + ";" + et_scheduleStartTime.getText().toString() + "-" + et_scheduleEndTime.getText().toString();
             String classCode = (className.toLowerCase() + " " + classSchedule).replace(" ", "_");
             String learningMode = et_learningMode.getText().toString().toUpperCase();
-            Map<String, Object> new_class = new HashMap<>();
-            new_class.put("name", className);
-            new_class.put("capacity", maxMembers);
-            new_class.put("members", currentMembers);
-            new_class.put("schedule", classSchedule);
-            new_class.put("join_code", classCode);
-            new_class.put("learning_mode", learningMode);
-            new_class.put("creator", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
-            new_class.put("creator_display_name", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
-
-            db.collection("classes").add(new_class).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            String creator = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+            String creatorDisplayName = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName();
+            ClassData newClass = new ClassData(id, className, classSchedule, learningMode, maxMembers, classCode, creator, creatorDisplayName);
+            db.collection("classes").add(newClass).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     Toast.makeText(getApplicationContext(), "Class created!", Toast.LENGTH_SHORT).show();

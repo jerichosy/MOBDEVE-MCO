@@ -49,7 +49,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
                 i.putExtra("classCreator", classData.getClassCreator());
                 i.putExtra("classCreatorDisplayName", classData.getClassCreatorDisplayName());
                 i.putExtra("classCapacity", String.valueOf(classData.getClassCapacity()));
-                i.putExtra("classMembers", String.valueOf(classData.getClassMembers()));
+                i.putExtra("classMembers", String.valueOf(classData.getClassMembers() == null ? 0 : classData.getClassMembers().size()));
                 i.putExtra("classJoinCode", classData.getClassJoinCode());
                 i.putExtra("classLearningMode", classData.getClassLearningMode());
                 v.getContext().startActivity(i);
