@@ -50,6 +50,10 @@ public class ClassJoinActivity extends AppCompatActivity {
 
                     // add user to the class if user is not member of class
                     db.collection("memberships").add(new MembershipData(Objects.requireNonNull(mAuth.getCurrentUser()).getUid(), join_code));
+                    db.collection("classes").whereEqualTo("join_code", join_code).get().addOnSuccessListener(queryDocumentSnapshots2 -> {
+                        String class_id = queryDocumentSnapshots2.getDocuments().get(0).getId();
+                        db.collection("classes").document(class_id).update("members", queryDocumentSnapshots2.getDocuments().get(0).getLong("members") + 1);
+                    });
                     Toast.makeText(getApplicationContext(), "Class joined!", Toast.LENGTH_SHORT).show();
                     finish();
                 });
