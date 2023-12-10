@@ -131,25 +131,6 @@ public class ClassDetailsActivity extends AppCompatActivity {
                 }
             }
 
-            // Not a member guard clause  TODO: Do we need this?
-            mAuth = FirebaseAuth.getInstance();
-            db = FirebaseFirestore.getInstance();
-            //FIXME: Conditions are not hitting properly
-            db.collection("memberships").whereEqualTo("uid", Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
-                    .whereEqualTo("join_code", join_code)
-                    .get()
-                    .addOnCompleteListener(
-                            task -> {
-                                // If nothing found, then error
-                                if (task.isSuccessful()) {
-                                    if (task.getResult().size() == 0) {
-                                        Toast.makeText(getApplicationContext(), "You are not a member of this class!", Toast.LENGTH_SHORT).show();
-                                        return;
-                                    }
-                                }
-                            }
-                    );
-
             // Attendance already recorded guard clause
             Date currentDate = new Date();
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.US);
