@@ -89,6 +89,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
 
             mAuth = FirebaseAuth.getInstance();
             db = FirebaseFirestore.getInstance();
+            //FIXME: Conditions are not hitting properly
             db.collection("memberships").whereEqualTo("uid", Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
                     .whereEqualTo("join_code", join_code)
                     .get()
@@ -104,10 +105,10 @@ public class ClassDetailsActivity extends AppCompatActivity {
                     }
             );
 
-
             Date currentDate = new Date();
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.US);
             String date = dateFormat.format(currentDate);
+            //FIXME: Conditions are not hitting properly
             db.collection("attendance").whereEqualTo("date", date)
                     .whereEqualTo("join_code", join_code)
                     .whereEqualTo("uid", Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).get().addOnCompleteListener(
