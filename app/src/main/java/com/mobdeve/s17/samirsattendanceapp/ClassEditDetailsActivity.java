@@ -18,6 +18,7 @@ public class ClassEditDetailsActivity extends AppCompatActivity {
     EditText et_className;
     EditText et_maxMembers;
     EditText et_classSchedule;
+    EditText et_learningMode;
     Button btn_editClass;
     FirebaseFirestore db;
 
@@ -29,6 +30,7 @@ public class ClassEditDetailsActivity extends AppCompatActivity {
         et_className = (EditText) findViewById(R.id.et_className);
         et_maxMembers = (EditText) findViewById(R.id.et_maxMembers);
         et_classSchedule = (EditText) findViewById(R.id.et_scheduleDays);
+        et_learningMode = (EditText) findViewById(R.id.et_learningModeEdit);
         btn_editClass = (Button) findViewById(R.id.btn_editClass);
 
         // Get class data from intent
@@ -36,12 +38,14 @@ public class ClassEditDetailsActivity extends AppCompatActivity {
         String classId = i.getStringExtra("classId");
         String className = i.getStringExtra("className");
         String classSchedule = i.getStringExtra("classSchedule");
+        String classLearningMode = i.getStringExtra("classLearningMode");
         int classCapacity = i.getIntExtra("classCapacity", 999);
         System.out.println("classCapacity: " + classCapacity);
 
         et_className.setText(className);
         et_classSchedule.setText(classSchedule);
         et_maxMembers.setText(String.valueOf(classCapacity));
+        et_learningMode.setText(classLearningMode);
 
         // Update class data
         this.db = FirebaseFirestore.getInstance();
@@ -51,16 +55,19 @@ public class ClassEditDetailsActivity extends AppCompatActivity {
             int maxMembers = Integer.parseInt(et_maxMembers.getText().toString());
             String newClassSchedule = et_classSchedule.getText().toString();
             String classCode = (newClassName.toLowerCase() + " " + newClassSchedule).replace(" ", "_");
+            String newLearningMode = et_learningMode.getText().toString().toUpperCase();
 
             db.collection("classes").document(classId)
                     .update("name", newClassName,
                             "capacity", maxMembers,
                             "schedule", newClassSchedule,
-                            "join_code", classCode)
+                            "join_code", classCode,
+                            "learning_mode", newLearningMode)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(getApplicationContext(), "Class edited!", Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -69,7 +76,6 @@ public class ClassEditDetailsActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Error updating document", Toast.LENGTH_SHORT).show();
                         }
                     });
-            finish();  // FIXME: This should be in onSuccess
         });
     }
 }

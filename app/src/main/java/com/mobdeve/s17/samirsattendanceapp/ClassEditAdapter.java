@@ -21,6 +21,7 @@ public class ClassEditAdapter extends RecyclerView.Adapter<ClassEditAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView className;
         private final TextView classSchedule;
+        private final TextView classLearningMode;
 
         public ViewHolder(View view) {
             super(view);
@@ -28,6 +29,7 @@ public class ClassEditAdapter extends RecyclerView.Adapter<ClassEditAdapter.View
 
             className = (TextView) view.findViewById(R.id.className);
             classSchedule = (TextView) view.findViewById(R.id.classSchedule);
+            classLearningMode = (TextView) view.findViewById(R.id.classLearningMode);
         }
 
         public TextView getClassName() {
@@ -35,6 +37,9 @@ public class ClassEditAdapter extends RecyclerView.Adapter<ClassEditAdapter.View
         }
         public TextView getClassSchedule() {
             return classSchedule;
+        }
+        public TextView getClassLearningMode() {
+            return classLearningMode;
         }
     }
 
@@ -70,6 +75,7 @@ public class ClassEditAdapter extends RecyclerView.Adapter<ClassEditAdapter.View
         final ClassData classData = classDataList.get(position);
         viewHolder.getClassName().setText(classData.getClassName());
         viewHolder.getClassSchedule().setText(classData.getClassSchedule());
+        viewHolder.getClassLearningMode().setText(classData.getClassLearningMode());
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +85,7 @@ public class ClassEditAdapter extends RecyclerView.Adapter<ClassEditAdapter.View
                 i.putExtra("className", classData.getClassName());
                 i.putExtra("classSchedule", classData.getClassSchedule());
                 i.putExtra("classCapacity", classData.getClassCapacity());
+                i.putExtra("classLearningMode", classData.getClassLearningMode());
                 v.getContext().startActivity(i);
             }
         });

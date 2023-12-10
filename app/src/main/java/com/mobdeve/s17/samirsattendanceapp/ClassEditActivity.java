@@ -50,6 +50,7 @@ public class ClassEditActivity extends AppCompatActivity {
                                 String classId = document.getId();
                                 String className = Objects.requireNonNull(document.getData().get("name")).toString();
                                 String classSchedule = Objects.requireNonNull(document.getData().get("schedule")).toString();
+                                String classLearningMode = Objects.requireNonNull(document.getData().get("learning_mode")).toString();
                                 int classCapacity = Integer.parseInt(Objects.requireNonNull(document.getData().get("capacity")).toString());
 //                                System.out.println("\nwowwwww\n");
 //                                System.out.println(className);
@@ -57,7 +58,7 @@ public class ClassEditActivity extends AppCompatActivity {
                                 System.out.println(document.getData());
 
                                 // Create a new ClassData object with the retrieved data
-                                ClassData classData = new ClassData(classId, className, classSchedule, classCapacity);
+                                ClassData classData = new ClassData(classId, className, classSchedule, classLearningMode,classCapacity);
 
                                 // Add the created ClassData object to the list
                                 classDataList.add(classData);

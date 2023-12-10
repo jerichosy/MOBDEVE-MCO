@@ -15,15 +15,12 @@ public class ClassData {
         // empty constructor needed for firebase
     }
 
-    public ClassData(String id, String className, String classSchedule, int classCapacity) {
+    public ClassData(String id, String className, String classSchedule, String classLearningMode, int classCapacity) {
         this.id = id;
         this.name = className;
         this.schedule = classSchedule;
         this.capacity = classCapacity;
-        this.members = 0;
-        this.join_code = "";
-        this.creator = "yes";
-        this.creator_display_name = "";
+        this.learning_mode = classLearningMode;
     }
 
     public ClassData(String className, String classSchedule, int capacity, int members, String joinCode, String creator, String creator_display_name, String learning_mode) {

@@ -38,6 +38,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
         final ClassData classData = classDataList.get(position);
         holder.className.setText(classData.getClassName());
         holder.classSchedule.setText(classData.getClassSchedule());
+        holder.classLearningMode.setText(classData.getClassLearningMode());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,11 +66,13 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
 
         TextView className;
         TextView classSchedule;
+        TextView classLearningMode;
 
         public ClassViewHolder(@NonNull View itemView) {
             super(itemView);
             className = itemView.findViewById(R.id.className);
             classSchedule = itemView.findViewById(R.id.classSchedule);
+            classLearningMode = itemView.findViewById(R.id.classLearningMode);
         }
     }
 
