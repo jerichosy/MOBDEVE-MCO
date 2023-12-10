@@ -7,6 +7,26 @@
     tools:context=".ClassDetailsActivity">
 
     <TextView
+        android:id="@+id/tv_join_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/tv_faculty" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:text="Join Code:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_faculty" />
+
+    <TextView
         android:id="@+id/tv_class_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,8 +52,8 @@
         android:id="@+id/tv_current_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="62dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="68dp"
         android:text="Your location:"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,23 +81,23 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_class_schedule" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="20dp"
-        android:text="Members:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_faculty" />
-
-    <TextView
         android:id="@+id/tv_members"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/tv_faculty" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
+        android:text="Members:"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_faculty" />
 
     <TextView

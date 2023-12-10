@@ -45,6 +45,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
     TextView tvLearningMode;
     TextView tvFaculty;
     TextView tvMembers;
+    TextView tvJoinCode;
     TextView tvCurrentLocation;
     private MapView osmMapView;
     Button btnAttend;
@@ -68,6 +69,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
         tvLearningMode = (TextView) findViewById(R.id.tv_learning_mode);
         tvFaculty = (TextView) findViewById(R.id.tv_faculty);
         tvMembers = (TextView) findViewById(R.id.tv_members);
+        tvJoinCode = (TextView) findViewById(R.id.tv_join_code);
         tvCurrentLocation = (TextView) findViewById(R.id.tv_current_location);
         osmMapView = (MapView) findViewById(R.id.osm_mv_current_loc);
         btnAttend = (Button) findViewById(R.id.btn_attend);
@@ -79,6 +81,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
         tvLearningMode.setText("Learning Mode: " + getIntent().getStringExtra("classLearningMode"));
         tvFaculty.setText(getIntent().getStringExtra("classCreatorDisplayName"));
         tvMembers.setText(getIntent().getStringExtra("classMembers") + " / " + getIntent().getStringExtra("classCapacity"));
+        tvJoinCode.setText(getIntent().getStringExtra("classJoinCode"));
 
         if (!getIntent().getStringExtra("classLearningMode").equals("F2F")) {
             isF2F = false;
