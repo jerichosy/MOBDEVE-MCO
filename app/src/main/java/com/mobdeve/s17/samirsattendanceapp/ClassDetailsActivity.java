@@ -48,6 +48,8 @@ public class ClassDetailsActivity extends AppCompatActivity {
     private MapView osmMapView;
     private MapController osmController;
     private MyLocationNewOverlay osmOverlay;
+    private boolean hasLocationFix = false;
+    private final GeoPoint DLSU_LOCATION = new GeoPoint(14.5661089,120.9912146);
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -68,6 +70,16 @@ public class ClassDetailsActivity extends AppCompatActivity {
 
         btnAttend = (Button) findViewById(R.id.btn_attend);
         btnAttend.setOnClickListener(v -> {
+            if (!hasLocationFix) {
+                Toast.makeText(getApplicationContext(), "Location not found!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            System.out.println(osmOverlay.getMyLocation());
+            if (osmOverlay.getMyLocation().distanceToAsDouble(DLSU_LOCATION) > 500) {
+                Toast.makeText(getApplicationContext(), "You are not in DLSU!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             mAuth = FirebaseAuth.getInstance();
             db = FirebaseFirestore.getInstance();
             String uid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
@@ -99,6 +111,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 osmController.animateTo(osmOverlay.getMyLocation());
                 osmController.setZoom(17.5);
+                hasLocationFix = true;
             });
         });
     }
