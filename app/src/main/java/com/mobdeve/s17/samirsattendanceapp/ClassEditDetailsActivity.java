@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ClassEditDetailsActivity extends AppCompatActivity {
@@ -56,13 +57,13 @@ public class ClassEditDetailsActivity extends AppCompatActivity {
             String newClassSchedule = et_classSchedule.getText().toString();
             String classCode = (newClassName.toLowerCase() + " " + newClassSchedule).replace(" ", "_");
             String newLearningMode = et_learningMode.getText().toString().toUpperCase();
-
-            db.collection("classes").document(classId)
-                    .update("name", newClassName,
-                            "capacity", maxMembers,
-                            "schedule", newClassSchedule,
-                            "join_code", classCode,
-                            "learning_mode", newLearningMode)
+            db.collection("classes").whereEqualTo("classId", classId).get().addOnSuccessListener(queryDocumentSnapshots -> {
+                DocumentReference docRef = queryDocumentSnapshots.getDocuments().get(0).getReference();
+                docRef.update("className", newClassName,
+                                "classCapacity", maxMembers,
+                                "classSchedule", newClassSchedule,
+                                "classJoinCode", classCode,
+                                "classLearningMode", newLearningMode)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -76,6 +77,7 @@ public class ClassEditDetailsActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Error updating document", Toast.LENGTH_SHORT).show();
                         }
                     });
+            });
         });
     }
 }

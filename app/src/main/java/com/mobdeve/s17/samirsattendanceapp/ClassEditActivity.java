@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -35,6 +36,7 @@ public class ClassEditActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         this.db = FirebaseFirestore.getInstance();
+        String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         db.collection("classes")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -46,22 +48,11 @@ public class ClassEditActivity extends AppCompatActivity {
 
                             // Iterate through the query results
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Extract class name and schedule from the document
-                                String classId = document.getId();
-                                String className = Objects.requireNonNull(document.getData().get("name")).toString();
-                                String classSchedule = Objects.requireNonNull(document.getData().get("schedule")).toString();
-                                String classLearningMode = Objects.requireNonNull(document.getData().get("learning_mode")).toString();
-                                int classCapacity = Integer.parseInt(Objects.requireNonNull(document.getData().get("capacity")).toString());
-//                                System.out.println("\nwowwwww\n");
-//                                System.out.println(className);
-//                                System.out.println(classSchedule);
-                                System.out.println(document.getData());
-
                                 // Create a new ClassData object with the retrieved data
-                                ClassData classData = new ClassData(classId, className, classSchedule, classLearningMode,classCapacity);
-
+                                ClassData classData = document.toObject(ClassData.class);
                                 // Add the created ClassData object to the list
-                                classDataList.add(classData);
+                                if (classData.getClassCreator().equals(uid))
+                                    classDataList.add(classData);
                             }
 
                             // At this point, 'classDataList' contains all ClassData objects
