@@ -39,6 +39,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
 
     TextView tvClassName;
     TextView tvClassSchedule;
+    TextView tvLearningMode;
     TextView tvFaculty;
     TextView tvMembers;
     Button btnAttend;
@@ -59,12 +60,15 @@ public class ClassDetailsActivity extends AppCompatActivity {
 
         tvClassName = (TextView) findViewById(R.id.tv_class_name);
         tvClassSchedule = (TextView) findViewById(R.id.tv_class_schedule);
+        tvLearningMode = (TextView) findViewById(R.id.tv_learning_mode);
         tvFaculty = (TextView) findViewById(R.id.tv_faculty);
         tvMembers = (TextView) findViewById(R.id.tv_members);
+
         this.join_code = getIntent().getStringExtra("classJoinCode");
 
         tvClassName.setText(getIntent().getStringExtra("className"));
         tvClassSchedule.setText(getIntent().getStringExtra("classSchedule"));
+        tvLearningMode.setText("Learning Mode: " + getIntent().getStringExtra("classLearningMode"));
         tvFaculty.setText(getIntent().getStringExtra("classCreatorDisplayName"));
         tvMembers.setText(getIntent().getStringExtra("classMembers") + " / " + getIntent().getStringExtra("classCapacity"));
 

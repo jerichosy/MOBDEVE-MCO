@@ -32,10 +32,10 @@
         android:text="Edit Class"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_scheduleTime" />
+        app:layout_constraintTop_toBottomOf="@+id/et_scheduleDays" />
 
     <EditText
-        android:id="@+id/et_scheduleTime"
+        android:id="@+id/et_scheduleDays"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
@@ -61,7 +61,7 @@
         android:ems="10"
         android:hint="Maximum Participants"
         android:inputType="number|numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/et_scheduleTime"
+        app:layout_constraintBottom_toTopOf="@+id/et_scheduleDays"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_className" />

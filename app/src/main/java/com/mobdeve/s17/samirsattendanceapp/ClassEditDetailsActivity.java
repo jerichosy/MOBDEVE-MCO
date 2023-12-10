@@ -11,13 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 public class ClassEditDetailsActivity extends AppCompatActivity {
 
@@ -34,7 +28,7 @@ public class ClassEditDetailsActivity extends AppCompatActivity {
 
         et_className = (EditText) findViewById(R.id.et_className);
         et_maxMembers = (EditText) findViewById(R.id.et_maxMembers);
-        et_classSchedule = (EditText) findViewById(R.id.et_scheduleTime);
+        et_classSchedule = (EditText) findViewById(R.id.et_scheduleDays);
         btn_editClass = (Button) findViewById(R.id.btn_editClass);
 
         // Get class data from intent

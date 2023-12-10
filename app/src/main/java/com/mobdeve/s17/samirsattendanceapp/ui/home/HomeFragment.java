@@ -76,13 +76,14 @@ public class HomeFragment extends Fragment {
                                 String classCreator = Objects.requireNonNull(document.getData().get("creator")).toString();
                                 String classCreatorDisplayName = document.getData().get("creator_display_name") == null ?
                                                                     "" : document.getData().get("creator_display_name").toString();
+                                String classLearningMode = Objects.requireNonNull(document.getData().get("learning_mode")).toString();
 //                                System.out.println("\nwowwwww\n");
 //                                System.out.println(className);
 //                                System.out.println(classSchedule);
                                 System.out.println(document.getData());
 
                                 // Create a new ClassData object with the retrieved data
-                                ClassData classData = new ClassData(className, classSchedule, classCapacity, classMembers, classJoinCode, classCreator, classCreatorDisplayName);
+                                ClassData classData = new ClassData(className, classSchedule, classCapacity, classMembers, classJoinCode, classCreator, classCreatorDisplayName, classLearningMode);
 
                                 // Add the created ClassData object to the list
                                 classDataList.add(classData);
