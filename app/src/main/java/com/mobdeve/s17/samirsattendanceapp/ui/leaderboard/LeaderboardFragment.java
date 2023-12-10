@@ -34,8 +34,8 @@ public class LeaderboardFragment extends Fragment {
         // Initialize the RecyclerView and your custom adapter
         recyclerView = binding.rvLeaderboardList; // Make sure you have 'recyclerView' in your fragment_home.xml
         StudentRecord[] leaderboardData = new StudentRecord[]{ // temporary use class data since its placeholders
-                new StudentRecord("Samir Car Driver", 50, 10),
-                new StudentRecord("Vladimir Cyka Rush", 48, 8)
+                new StudentRecord("Ced Yu", "VyBkoY5BveNemXoSAoDnjlbMckj1", 50),
+                new StudentRecord("Samir Sy", "xcYzVylUHTSMiSUw7cbe80PEusk2", 48)
         };
         LeaderboardAdapter adapter = new LeaderboardAdapter(leaderboardData); // Initialize your adapter, here an empty list is passed
 
@@ -46,13 +46,13 @@ public class LeaderboardFragment extends Fragment {
 //        final TextView textView = binding.textLeaderboard;
 //        leaderboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-        Switch sw = binding.switchLeaderboard;
-        sw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sw.setText(sw.isChecked() ? "Hall of Shame" : "Hall of Fame");
-            }
-        });
+//        Switch sw = binding.switchLeaderboard;
+//        sw.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                sw.setText(sw.isChecked() ? "Hall of Shame" : "Hall of Fame");
+//            }
+//        });
 
         return root;
     }

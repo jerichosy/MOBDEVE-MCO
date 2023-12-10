@@ -2,28 +2,24 @@ package com.mobdeve.s17.samirsattendanceapp;
 
 public class StudentRecord {
 
-    public String studentName;
-    public int present;
-    public int absent;
+    private String studentName;
+    private String uid;
+    private int attendance;
     public StudentRecord() {
         // empty constructor needed for firebase
     }
 
-    public StudentRecord(String studentName, int present, int absent) {
+    public StudentRecord(String studentName, String uid, int attendance) {
         this.studentName = studentName;
-        this.present = present;
-        this.absent = absent;
+        this.uid = uid;
+        this.attendance = attendance;
     }
 
     public String getStudentName() {
         return studentName;
     }
 
-    public int getPresent() {
-        return present;
-    }
+    public int getAttendance() { return attendance; }
 
-    public int getAbsent() {
-        return absent;
-    }
+    public boolean compareUid(String uid) { return this.uid.equals(uid); }
 }

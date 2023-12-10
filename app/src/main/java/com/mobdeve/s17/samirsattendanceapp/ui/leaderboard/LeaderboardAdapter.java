@@ -36,7 +36,7 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
     public void onBindViewHolder(@NonNull LeaderboardAdapter.ViewHolder holder, int position) {
         final StudentRecord classDataList = leaderboardData[position];
         holder.studentName.setText(classDataList.getStudentName());
-        holder.attendance.setText(String.valueOf(classDataList.getPresent()));
+        holder.attendance.setText(String.valueOf(classDataList.getAttendance()));
     }
 
     @Override
