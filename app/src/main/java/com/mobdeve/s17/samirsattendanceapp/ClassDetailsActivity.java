@@ -87,24 +87,40 @@ public class ClassDetailsActivity extends AppCompatActivity {
                 return;
             }
 
+            mAuth = FirebaseAuth.getInstance();
+            db = FirebaseFirestore.getInstance();
+            db.collection("memberships").whereEqualTo("uid", Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
+                    .whereEqualTo("join_code", join_code)
+                    .get()
+                    .addOnCompleteListener(
+                    task -> {
+                        // If nothing found, then error
+                        if (task.isSuccessful()) {
+                            if (task.getResult().size() == 0) {
+                                Toast.makeText(getApplicationContext(), "You are not a member of this class!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                    }
+            );
+
+
             Date currentDate = new Date();
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.US);
             String date = dateFormat.format(currentDate);
-//            db.collection("attendance").whereEqualTo("date", date)
-//                    .whereEqualTo("join_code", join_code)
-//                    .whereEqualTo("uid", Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).get().addOnCompleteListener(
-//                        task -> {
-//                            if (task.isSuccessful()) {
-//                                if (task.getResult().size() > 0) {
-//                                    Toast.makeText(getApplicationContext(), "Attendance already recorded!", Toast.LENGTH_SHORT).show();
-//                                    return;
-//                                }
-//                            }
-//                        }
-//            );
+            db.collection("attendance").whereEqualTo("date", date)
+                    .whereEqualTo("join_code", join_code)
+                    .whereEqualTo("uid", Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).get().addOnCompleteListener(
+                        task -> {
+                            if (task.isSuccessful()) {
+                                if (task.getResult().size() != 0) {
+                                    Toast.makeText(getApplicationContext(), "Attendance already recorded!", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                        }
+            );
 
-            mAuth = FirebaseAuth.getInstance();
-            db = FirebaseFirestore.getInstance();
             String uid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
             String display_name = Objects.requireNonNull(mAuth.getCurrentUser()).getDisplayName();
             db.collection("attendance").add(new AttendanceData(uid, date, display_name, join_code));
