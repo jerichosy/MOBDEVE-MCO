@@ -32,7 +32,10 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class ClassDetailsActivity extends AppCompatActivity {
@@ -79,16 +82,32 @@ public class ClassDetailsActivity extends AppCompatActivity {
                 return;
             }
             System.out.println(osmOverlay.getMyLocation());
-            if (osmOverlay.getMyLocation().distanceToAsDouble(DLSU_LOCATION) > 500) {
+            if (osmOverlay.getMyLocation().distanceToAsDouble(DLSU_LOCATION) > 500 && getIntent().getStringExtra("classLearningMode").equals("F2F")) {
                 Toast.makeText(getApplicationContext(), "You are not in DLSU!", Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            Date currentDate = new Date();
+            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.US);
+            String date = dateFormat.format(currentDate);
+            db.collection("attendance").whereEqualTo("date", date)
+                    .whereEqualTo("join_code", join_code)
+                    .whereEqualTo("uid", Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).get().addOnCompleteListener(
+                        task -> {
+                            if (task.isSuccessful()) {
+                                if (task.getResult().size() > 0) {
+                                    Toast.makeText(getApplicationContext(), "Attendance already recorded!", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                        }
+            );
 
             mAuth = FirebaseAuth.getInstance();
             db = FirebaseFirestore.getInstance();
             String uid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
             String display_name = Objects.requireNonNull(mAuth.getCurrentUser()).getDisplayName();
-            db.collection("attendance").add(new AttendanceData(uid, display_name, join_code));
+            db.collection("attendance").add(new AttendanceData(uid, date, display_name, join_code));
             Toast.makeText(getApplicationContext(), "Attendance recorded!", Toast.LENGTH_SHORT).show();
             finish();
         });

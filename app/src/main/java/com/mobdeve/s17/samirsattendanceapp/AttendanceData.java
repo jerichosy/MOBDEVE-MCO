@@ -17,13 +17,13 @@ public class AttendanceData {
         // empty constructor needed for firebase
     }
 
-    public AttendanceData(String uid, String display_name, String class_id) {
+    public AttendanceData(String uid, String date, String display_name, String class_id) {
         this.uid = uid;
         this.display_name = display_name;
         this.join_code = class_id;
-        Date currentDate = new Date();
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.US);
-        this.date = dateFormat.format(currentDate);
+        //Date currentDate = new Date();
+        //DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.US);
+        this.date = date;
     }
 
     public String getUid() {
