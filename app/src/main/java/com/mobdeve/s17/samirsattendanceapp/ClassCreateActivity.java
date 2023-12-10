@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 public class ClassCreateActivity extends AppCompatActivity {
 
@@ -44,7 +45,7 @@ public class ClassCreateActivity extends AppCompatActivity {
             String className = et_className.getText().toString();
             int maxMembers = Integer.parseInt(et_maxMembers.getText().toString());
             String classSchedule = et_scheduleDays.getText().toString() + ";" + et_scheduleStartTime.getText().toString() + "-" + et_scheduleEndTime.getText().toString();
-            String classCode = (className.toLowerCase() + " " + classSchedule).replace(" ", "_");
+            String classCode = generateJoinCode(className);
             String learningMode = et_learningMode.getText().toString().toUpperCase();
             String creator = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
             String creatorDisplayName = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName();
@@ -60,5 +61,17 @@ public class ClassCreateActivity extends AppCompatActivity {
             });
             finish();
         });
+    }
+
+    private String generateJoinCode(String className) {
+        StringBuilder joinCode = new StringBuilder();
+        Random r = new Random();
+        joinCode.append(className.toLowerCase().replace(" ", "-"));
+        joinCode.append('-');
+        for (int i = 0; i < 5; i++) {
+            int letter = r.nextInt(26) + 65;
+            joinCode.append((char) letter);
+        }
+        return joinCode.toString();
     }
 }

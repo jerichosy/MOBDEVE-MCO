@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 ClassData classData = document.toObject(ClassData.class);
                                 // Add the created ClassData object to the list if the user is a member
-                                if (classData.getClassMembers().contains(uid))
+                                if (classData.getClassMembers().contains(uid) || classData.getClassCreator().contains(uid))
                                     classDataList.add(classData);
                             }
 

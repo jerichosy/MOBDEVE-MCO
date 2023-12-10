@@ -55,14 +55,12 @@ public class ClassEditDetailsActivity extends AppCompatActivity {
             String newClassName = et_className.getText().toString();
             int maxMembers = Integer.parseInt(et_maxMembers.getText().toString());
             String newClassSchedule = et_classSchedule.getText().toString();
-            String classCode = (newClassName.toLowerCase() + " " + newClassSchedule).replace(" ", "_");
             String newLearningMode = et_learningMode.getText().toString().toUpperCase();
             db.collection("classes").whereEqualTo("classId", classId).get().addOnSuccessListener(queryDocumentSnapshots -> {
                 DocumentReference docRef = queryDocumentSnapshots.getDocuments().get(0).getReference();
                 docRef.update("className", newClassName,
                                 "classCapacity", maxMembers,
                                 "classSchedule", newClassSchedule,
-                                "classJoinCode", classCode,
                                 "classLearningMode", newLearningMode)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
