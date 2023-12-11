@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -22,13 +21,8 @@ import com.mobdeve.s17.samirsattendanceapp.databinding.ActivityHomeBinding;
 
 import java.util.Calendar;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 public class HomeActivity extends AppCompatActivity {
 
-    private TextView tvDate;
     private ActivityHomeBinding binding;
 
     @Override
@@ -47,10 +41,6 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_home);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
-        tvDate = findViewById(R.id.text_date);
-        String currentDay = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.US).format(new Date());
-        tvDate.setText(currentDay);
 
         createNotificationChannel();
         scheduleWeeklyReminder();

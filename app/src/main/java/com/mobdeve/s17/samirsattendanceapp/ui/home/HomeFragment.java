@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -33,6 +34,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private RecyclerView rvClassList;
     private RecyclerView rvUpcomingList;
+    private TextView tvDate;
     private FirebaseFirestore db;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -46,6 +48,10 @@ public class HomeFragment extends Fragment {
         // Initialize the RecyclerView and your custom adapter
         rvClassList = binding.rvClassList; // Make sure you have 'recyclerView' in your fragment_home.xml
         rvUpcomingList = binding.rvUpcomingList;
+        tvDate = binding.textDate;
+
+        String currentDay = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.US).format(new Date());
+        tvDate.setText(currentDay);
 
         ClassAdapter classListAdapter = new ClassAdapter(Collections.emptyList());
         ClassAdapter upcomingListAdapter = new ClassAdapter(Collections.emptyList());
