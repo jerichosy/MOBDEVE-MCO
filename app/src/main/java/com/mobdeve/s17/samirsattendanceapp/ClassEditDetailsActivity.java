@@ -21,6 +21,7 @@ public class ClassEditDetailsActivity extends AppCompatActivity {
     EditText et_classSchedule;
     EditText et_learningMode;
     Button btn_editClass;
+    Button btn_deleteClass;
     FirebaseFirestore db;
 
     @Override
@@ -33,6 +34,7 @@ public class ClassEditDetailsActivity extends AppCompatActivity {
         et_classSchedule = (EditText) findViewById(R.id.et_scheduleDays);
         et_learningMode = (EditText) findViewById(R.id.et_learningModeEdit);
         btn_editClass = (Button) findViewById(R.id.btn_editClass);
+        btn_deleteClass = (Button) findViewById(R.id.btn_deleteClass);
 
         // Get class data from intent
         Intent i = getIntent();
@@ -75,6 +77,24 @@ public class ClassEditDetailsActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Error updating document", Toast.LENGTH_SHORT).show();
                         }
                     });
+            });
+        });
+
+        btn_deleteClass.setOnClickListener(v -> {
+            db.collection("classes").whereEqualTo("classId", classId).get().addOnSuccessListener(queryDocumentSnapshots -> {
+                DocumentReference docRef = queryDocumentSnapshots.getDocuments().get(0).getReference();
+                docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Class deleted!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error deleting document", Toast.LENGTH_SHORT).show();
+                    }
+                });
             });
         });
     }

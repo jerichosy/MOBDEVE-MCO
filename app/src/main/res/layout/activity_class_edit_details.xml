@@ -17,6 +17,7 @@
         android:ems="10"
         android:hint="Class Name"
         android:inputType="text"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/et_maxMembers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +46,7 @@
         android:ems="10"
         android:hint="M915-1045;H915-1045"
         android:inputType="text"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_editClass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +63,7 @@
         android:ems="10"
         android:hint="Maximum Participants"
         android:inputType="number|numberDecimal"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/et_scheduleDays"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,8 +79,21 @@
         android:ems="10"
         android:hint="Online / F2F"
         android:inputType="text"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_scheduleDays" />
+
+    <Button
+        android:id="@+id/btn_deleteClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="161dp"
+        android:text="Delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_editClass" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
