@@ -38,6 +38,7 @@ public class ClassEditActivity extends AppCompatActivity {
         this.db = FirebaseFirestore.getInstance();
         String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         db.collection("classes")
+                .whereEqualTo("classCreator", uid)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -51,8 +52,7 @@ public class ClassEditActivity extends AppCompatActivity {
                                 // Create a new ClassData object with the retrieved data
                                 ClassData classData = document.toObject(ClassData.class);
                                 // Add the created ClassData object to the list
-                                if (classData.getClassCreator().equals(uid))
-                                    classDataList.add(classData);
+                                classDataList.add(classData);
                             }
 
                             // At this point, 'classDataList' contains all ClassData objects

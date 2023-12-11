@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -29,6 +30,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -64,6 +66,10 @@ public class HomeFragment extends Fragment {
         this.db = FirebaseFirestore.getInstance();
         String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         db.collection("classes")
+                .where(Filter.or(
+                        Filter.equalTo("classCreator", uid),
+                        Filter.arrayContains("classMembers", uid)
+                ))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -77,8 +83,7 @@ public class HomeFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 ClassData classData = document.toObject(ClassData.class);
                                 // Add the created ClassData object to the list if the user is a member
-                                if (classData.getClassMembers().contains(uid) || classData.getClassCreator().contains(uid))
-                                    classList.add(classData);
+                                classList.add(classData);
                             }
 
                             // At this point, 'classDataList' contains all ClassData objects
