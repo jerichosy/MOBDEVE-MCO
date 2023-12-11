@@ -1,19 +1,11 @@
 package com.mobdeve.s17.samirsattendanceapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,19 +13,15 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.compass.CompassOverlay;
-import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -140,41 +128,19 @@ public class ClassDetailsActivity extends AppCompatActivity {
             Date currentDate = new Date();
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.US);
             String date = dateFormat.format(currentDate);
-            //FIXME: Conditions are not hitting properly
-            db.collection("attendance").whereEqualTo("date", date)
-                    .whereEqualTo("join_code", join_code)
-                    .whereEqualTo("uid", Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).get().addOnCompleteListener(
-                            task -> {
-                                if (task.isSuccessful()) {
-                                    if (task.getResult().size() != 0) {
-                                        Toast.makeText(getApplicationContext(), "Attendance already recorded!", Toast.LENGTH_SHORT).show();
-                                        return;
-                                    }
-                                }
-                            }
-                    );
-
-            // Success
             String uid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
             String display_name = Objects.requireNonNull(mAuth.getCurrentUser()).getDisplayName();
-            db.collection("attendance").add(new AttendanceData(uid, date, display_name, join_code));
-            db.collection("attendance_total")
+            db.collection("attendance").whereEqualTo("date", date)
+                    .whereEqualTo("join_code", join_code)
                     .whereEqualTo("uid", uid).get().addOnCompleteListener(
                             task -> {
-                                if (task.isSuccessful()) {
-                                    if (task.getResult().size() > 0) {
-                                        // update attendance_total
-                                        String id = task.getResult().getDocuments().get(0).getId();
-                                        int attendance = task.getResult().getDocuments().get(0).getLong("attendance").intValue();
-                                        db.collection("attendance_total").document(id).update("attendance", attendance + 1);
-                                    } else {
-                                        // add new record
-                                        db.collection("attendance_total").add(new StudentRecord(display_name, uid, 1));
-                                    }
+                                if (task.isSuccessful() && task.getResult().size() != 0) {
+                                    Toast.makeText(getApplicationContext(), "Attendance already recorded!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    recordAttendance(uid, date, display_name);
                                 }
                             }
                     );
-            Toast.makeText(getApplicationContext(), "Attendance recorded!", Toast.LENGTH_SHORT).show();
             finish();
         });
     }
@@ -195,5 +161,26 @@ public class ClassDetailsActivity extends AppCompatActivity {
             osmMapView.onPause();  //needed for compass, my location overlays, v6.0.0 and up
             osmOverlay.disableMyLocation();
         }
+    }
+
+    private void recordAttendance(String uid, String date, String display_name) {
+        db.collection("attendance").add(new AttendanceData(uid, date, display_name, join_code));
+        db.collection("attendance_total")
+                .whereEqualTo("uid", uid).get().addOnCompleteListener(
+                        task -> {
+                            if (task.isSuccessful()) {
+                                if (task.getResult().size() > 0) {
+                                    // update attendance_total
+                                    String id = task.getResult().getDocuments().get(0).getId();
+                                    int attendance = task.getResult().getDocuments().get(0).getLong("attendance").intValue();
+                                    db.collection("attendance_total").document(id).update("attendance", attendance + 1);
+                                } else {
+                                    // add new record
+                                    db.collection("attendance_total").add(new StudentRecord(display_name, uid, 1));
+                                }
+                            }
+                        }
+                );
+        Toast.makeText(getApplicationContext(), "Attendance recorded!", Toast.LENGTH_SHORT).show();
     }
 }
