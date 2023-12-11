@@ -52,15 +52,15 @@ public class ClassDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_details);
 
-        tvClassName = (TextView) findViewById(R.id.tv_class_name);
-        tvClassSchedule = (TextView) findViewById(R.id.tv_class_schedule);
-        tvLearningMode = (TextView) findViewById(R.id.tv_learning_mode);
-        tvFaculty = (TextView) findViewById(R.id.tv_faculty);
-        tvMembers = (TextView) findViewById(R.id.tv_members);
-        tvJoinCode = (TextView) findViewById(R.id.tv_join_code);
-        tvCurrentLocation = (TextView) findViewById(R.id.tv_current_location);
-        osmMapView = (MapView) findViewById(R.id.osm_mv_current_loc);
-        btnAttend = (Button) findViewById(R.id.btn_attend);
+        tvClassName = findViewById(R.id.tv_class_name);
+        tvClassSchedule = findViewById(R.id.tv_class_schedule);
+        tvLearningMode = findViewById(R.id.tv_learning_mode);
+        tvFaculty = findViewById(R.id.tv_faculty);
+        tvMembers = findViewById(R.id.tv_members);
+        tvJoinCode = findViewById(R.id.tv_join_code);
+        tvCurrentLocation = findViewById(R.id.tv_current_location);
+        osmMapView = findViewById(R.id.osm_mv_current_loc);
+        btnAttend = findViewById(R.id.btn_attend);
 
         this.join_code = getIntent().getStringExtra("classJoinCode");
 
@@ -71,7 +71,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
         tvMembers.setText(getIntent().getStringExtra("classMembers") + " / " + getIntent().getStringExtra("classCapacity"));
         tvJoinCode.setText(getIntent().getStringExtra("classJoinCode"));
 
-        if (!getIntent().getStringExtra("classLearningMode").equals("F2F")) {
+        if (!Objects.requireNonNull(getIntent().getStringExtra("classLearningMode")).equals("F2F")) {
             isF2F = false;
             osmMapView.setVisibility(MapView.GONE);
             tvCurrentLocation.setVisibility(TextView.GONE);
@@ -95,15 +95,13 @@ public class ClassDetailsActivity extends AppCompatActivity {
             osmOverlay.enableMyLocation();
             osmMapView.getOverlays().add(osmOverlay);
 
-            osmOverlay.runOnFirstFix(() -> {
-                runOnUiThread(() -> {
-                    osmController.animateTo(osmOverlay.getMyLocation());
-                    osmController.setZoom(17.5);
-                    hasLocationFix = true;
+            osmOverlay.runOnFirstFix(() -> runOnUiThread(() -> {
+                osmController.animateTo(osmOverlay.getMyLocation());
+                osmController.setZoom(17.5);
+                hasLocationFix = true;
 
-                    osmOverlay.enableFollowLocation();
-                });
-            });
+                osmOverlay.enableFollowLocation();
+            }));
         }
 
         btnAttend.setOnClickListener(v -> {
@@ -172,7 +170,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
                                 if (task.getResult().size() > 0) {
                                     // update attendance_total
                                     String id = task.getResult().getDocuments().get(0).getId();
-                                    int attendance = task.getResult().getDocuments().get(0).getLong("attendance").intValue();
+                                    int attendance = Objects.requireNonNull(task.getResult().getDocuments().get(0).getLong("attendance")).intValue();
                                     db.collection("attendance_total").document(id).update("attendance", attendance + 1);
                                 } else {
                                     // add new record

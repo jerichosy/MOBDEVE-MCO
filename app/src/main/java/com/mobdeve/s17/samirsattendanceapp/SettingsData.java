@@ -1,7 +1,5 @@
 package com.mobdeve.s17.samirsattendanceapp;
 
-import android.view.View;
-
 public class SettingsData {
     private String settingsName;
     private Class settingsCls;

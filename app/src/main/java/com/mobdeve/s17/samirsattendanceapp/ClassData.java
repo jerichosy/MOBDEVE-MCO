@@ -37,7 +37,7 @@ public class ClassData {
         this.join_code = classCode;
         this.creator = creator;
         this.creator_display_name = creatorDisplayName;
-        this.members = new ArrayList<String>();
+        this.members = new ArrayList<>();
     }
 
     public String getClassId() { return id; }

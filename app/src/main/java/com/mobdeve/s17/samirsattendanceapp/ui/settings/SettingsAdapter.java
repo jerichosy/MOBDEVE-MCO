@@ -18,7 +18,7 @@ import com.mobdeve.s17.samirsattendanceapp.SettingsData;
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder>{
 
     SettingsData[] settingsData;
-    private FirebaseAuth mAuth;
+    private final FirebaseAuth mAuth;
 
     public SettingsAdapter(SettingsData[] settingsData) {
         this.settingsData = settingsData;
@@ -31,7 +31,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         // TODO: Not sure if importing R like this instead of using context.getResources().getStringArray(R...) is okay
         View view = inflater.inflate(R.layout.settings_item_list, parent, false);
-        SettingsAdapter.ViewHolder viewHolder = new SettingsAdapter.ViewHolder(view);
+        SettingsAdapter.ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
@@ -67,7 +67,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         return settingsData.length;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView settingName;
 

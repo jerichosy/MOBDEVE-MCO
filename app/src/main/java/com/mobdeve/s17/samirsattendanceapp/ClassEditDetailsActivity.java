@@ -1,16 +1,13 @@
 package com.mobdeve.s17.samirsattendanceapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -29,12 +26,12 @@ public class ClassEditDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_edit_details);
 
-        et_className = (EditText) findViewById(R.id.et_className);
-        et_maxMembers = (EditText) findViewById(R.id.et_maxMembers);
-        et_classSchedule = (EditText) findViewById(R.id.et_scheduleDays);
-        et_learningMode = (EditText) findViewById(R.id.et_learningModeEdit);
-        btn_editClass = (Button) findViewById(R.id.btn_editClass);
-        btn_deleteClass = (Button) findViewById(R.id.btn_deleteClass);
+        et_className = findViewById(R.id.et_className);
+        et_maxMembers = findViewById(R.id.et_maxMembers);
+        et_classSchedule = findViewById(R.id.et_scheduleDays);
+        et_learningMode = findViewById(R.id.et_learningModeEdit);
+        btn_editClass = findViewById(R.id.btn_editClass);
+        btn_deleteClass = findViewById(R.id.btn_deleteClass);
 
         // Get class data from intent
         Intent i = getIntent();
@@ -64,39 +61,21 @@ public class ClassEditDetailsActivity extends AppCompatActivity {
                                 "classCapacity", maxMembers,
                                 "classSchedule", newClassSchedule,
                                 "classLearningMode", newLearningMode)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(getApplicationContext(), "Class edited!", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(getApplicationContext(), "Class edited!", Toast.LENGTH_SHORT).show();
+                        finish();
                     })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(), "Error updating document", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error updating document", Toast.LENGTH_SHORT).show());
             });
         });
 
-        btn_deleteClass.setOnClickListener(v -> {
-            db.collection("classes").whereEqualTo("classId", classId).get().addOnSuccessListener(queryDocumentSnapshots -> {
-                DocumentReference docRef = queryDocumentSnapshots.getDocuments().get(0).getReference();
-                docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(getApplicationContext(), "Class deleted!", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Error deleting document", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            });
-        });
+        btn_deleteClass.setOnClickListener(v -> db.collection("classes").whereEqualTo("classId", classId).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            DocumentReference docRef = queryDocumentSnapshots.getDocuments().get(0).getReference();
+            docRef.delete().addOnSuccessListener(aVoid -> {
+                Toast.makeText(getApplicationContext(), "Class deleted!", Toast.LENGTH_SHORT).show();
+                finish();
+            }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error deleting document", Toast.LENGTH_SHORT).show());
+        }));
     }
 }
 

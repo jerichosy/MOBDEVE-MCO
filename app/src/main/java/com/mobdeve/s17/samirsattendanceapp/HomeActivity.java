@@ -48,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        tvDate = (TextView) findViewById(R.id.text_date);
+        tvDate = findViewById(R.id.text_date);
         String currentDay = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.US).format(new Date());
         tvDate.setText(currentDay);
 
@@ -102,22 +102,5 @@ public class HomeActivity extends AppCompatActivity {
         // For API 19 and above, setRepeating has been replaced with setInexactRepeating.
         // If you need exact timing use setExact (or setExactAndAllowWhileIdle for Doze mode).
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), repeatInterval, pendingIntent);
-
-        // TEST
-//        calendar.add(Calendar.SECOND, 13);
-//        System.out.println("\n\nwow\n\n");
-//
-//        // Check if the app needs the permission and doesn't have it
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !getSystemService(AlarmManager.class).canScheduleExactAlarms()) {
-//            // Show a dialog or notification to inform the user they need to grant the permission
-//            // then direct them to the settings with the following intent
-//            Intent i = new Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
-//            startActivity(i);
-//        } else {
-//            // Permission is already granted, or this is running on a lower API level
-//            // where the permission isn't needed; you can safely schedule your exact alarms
-//        }
-//
-//        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 }

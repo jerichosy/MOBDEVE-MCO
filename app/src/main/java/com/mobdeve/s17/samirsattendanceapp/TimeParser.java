@@ -1,10 +1,10 @@
 package com.mobdeve.s17.samirsattendanceapp;
 
 public class TimeParser {
-    private String fullSched;
-    private String schedDays;
-    private String startTime;
-    private String endTime;
+    private final String fullSched;
+    private final String schedDays;
+    private final String startTime;
+    private final String endTime;
     public TimeParser(String fullSched) {
         this.fullSched = fullSched;
         this.schedDays = fullSched.split(";")[0];

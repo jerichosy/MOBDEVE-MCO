@@ -2,20 +2,15 @@ package com.mobdeve.s17.samirsattendanceapp;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -41,11 +36,11 @@ public class RegisterActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        editTextFirstName = (EditText) findViewById(R.id.register_et_firstName);
-        editTextLastName = (EditText) findViewById(R.id.register_et_lastName);
-        editTextEmail = (EditText) findViewById(R.id.register_et_email);
-        editTextPassword = (EditText) findViewById(R.id.register_et_password);
-        editTextConfirmPassword = (EditText) findViewById(R.id.register_et_confirmPassword);
+        editTextFirstName = findViewById(R.id.register_et_firstName);
+        editTextLastName = findViewById(R.id.register_et_lastName);
+        editTextEmail = findViewById(R.id.register_et_email);
+        editTextPassword = findViewById(R.id.register_et_password);
+        editTextConfirmPassword = findViewById(R.id.register_et_confirmPassword);
 
         mAuth = FirebaseAuth.getInstance();
     }
@@ -71,36 +66,33 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
         mAuth.createUserWithEmailAndPassword(editTextEmail.getText().toString(), editTextPassword.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            assert user != null;
-                            user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(editTextFirstName.getText().toString() + " " + editTextLastName.getText().toString()).build());
-                            updateUI(user);
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "createUserWithEmail:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        assert user != null;
+                        user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(editTextFirstName.getText().toString() + " " + editTextLastName.getText().toString()).build());
+                        updateUI(user);
+                    } else {
+                        // If register fails, display a message to the user.
+                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                        Exception exception = task.getException();
+                        if (exception instanceof FirebaseAuthUserCollisionException) {
+                            Toast.makeText(RegisterActivity.this, "Email already exists.",
+                                    Toast.LENGTH_SHORT).show();
+                        } else if (exception instanceof FirebaseAuthWeakPasswordException) {
+                            Toast.makeText(RegisterActivity.this, "Password must be at least 6 characters.",
+                                    Toast.LENGTH_SHORT).show();
+                        } else if (exception instanceof FirebaseAuthInvalidCredentialsException) {
+                            Toast.makeText(RegisterActivity.this, "Invalid email.",
+                                    Toast.LENGTH_SHORT).show();
                         } else {
-                            // If register fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Exception exception = task.getException();
-                            if (exception instanceof FirebaseAuthUserCollisionException) {
-                                Toast.makeText(RegisterActivity.this, "Email already exists.",
-                                        Toast.LENGTH_SHORT).show();
-                            } else if (exception instanceof FirebaseAuthWeakPasswordException) {
-                                Toast.makeText(RegisterActivity.this, "Password must be at least 6 characters.",
-                                        Toast.LENGTH_SHORT).show();
-                            } else if (exception instanceof FirebaseAuthInvalidCredentialsException) {
-                                Toast.makeText(RegisterActivity.this, "Invalid email.",
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                // General authentication failure message
-                                Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                            updateUI(null);
+                            // General authentication failure message
+                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
                         }
+                        updateUI(null);
                     }
                 });
     }

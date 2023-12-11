@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -27,9 +28,9 @@ public class ClassEditAdapter extends RecyclerView.Adapter<ClassEditAdapter.View
             super(view);
             // Define click listener for the ViewHolder's View
 
-            className = (TextView) view.findViewById(R.id.className);
-            classSchedule = (TextView) view.findViewById(R.id.classSchedule);
-            classLearningMode = (TextView) view.findViewById(R.id.classLearningMode);
+            className = view.findViewById(R.id.className);
+            classSchedule = view.findViewById(R.id.classSchedule);
+            classLearningMode = view.findViewById(R.id.classLearningMode);
         }
 
         public TextView getClassName() {
@@ -54,6 +55,7 @@ public class ClassEditAdapter extends RecyclerView.Adapter<ClassEditAdapter.View
     }
 
     // Create new views (invoked by the layout manager)
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
@@ -69,25 +71,20 @@ public class ClassEditAdapter extends RecyclerView.Adapter<ClassEditAdapter.View
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-//        viewHolder.getClassName().setText(localDataSet[position]);
-//        viewHolder.getClassSchedule().setText(localDataSet[position]);
 
         final ClassData classData = classDataList.get(position);
         viewHolder.getClassName().setText(classData.getClassName());
         viewHolder.getClassSchedule().setText(classData.getClassSchedule());
         viewHolder.getClassLearningMode().setText(classData.getClassLearningMode());
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), ClassEditDetailsActivity.class);
-                i.putExtra("classId", classData.getClassId());
-                i.putExtra("className", classData.getClassName());
-                i.putExtra("classSchedule", classData.getClassSchedule());
-                i.putExtra("classCapacity", classData.getClassCapacity());
-                i.putExtra("classLearningMode", classData.getClassLearningMode());
-                v.getContext().startActivity(i);
-            }
+        viewHolder.itemView.setOnClickListener(v -> {
+            Intent i = new Intent(v.getContext(), ClassEditDetailsActivity.class);
+            i.putExtra("classId", classData.getClassId());
+            i.putExtra("className", classData.getClassName());
+            i.putExtra("classSchedule", classData.getClassSchedule());
+            i.putExtra("classCapacity", classData.getClassCapacity());
+            i.putExtra("classLearningMode", classData.getClassLearningMode());
+            v.getContext().startActivity(i);
         });
     }
 

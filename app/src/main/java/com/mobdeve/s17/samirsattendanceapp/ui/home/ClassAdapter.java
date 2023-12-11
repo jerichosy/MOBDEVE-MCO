@@ -29,8 +29,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         // TODO: Not sure if importing R like this instead of using context.getResources().getStringArray(R...) is okay
         View view = inflater.inflate(R.layout.class_item_list, parent, false);
-        ClassAdapter.ClassViewHolder viewHolder = new ClassViewHolder(view);
-        return viewHolder;
+        return new ClassViewHolder(view);
     }
 
     @Override
@@ -40,20 +39,17 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
         holder.classSchedule.setText(classData.getClassSchedule());
         holder.classLearningMode.setText(classData.getClassLearningMode());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), ClassDetailsActivity.class);
-                i.putExtra("className", classData.getClassName());
-                i.putExtra("classSchedule", classData.getClassSchedule());
-                i.putExtra("classCreator", classData.getClassCreator());
-                i.putExtra("classCreatorDisplayName", classData.getClassCreatorDisplayName());
-                i.putExtra("classCapacity", String.valueOf(classData.getClassCapacity()));
-                i.putExtra("classMembers", String.valueOf(classData.getClassMembers() == null ? 0 : classData.getClassMembers().size()));
-                i.putExtra("classJoinCode", classData.getClassJoinCode());
-                i.putExtra("classLearningMode", classData.getClassLearningMode());
-                v.getContext().startActivity(i);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Intent i = new Intent(v.getContext(), ClassDetailsActivity.class);
+            i.putExtra("className", classData.getClassName());
+            i.putExtra("classSchedule", classData.getClassSchedule());
+            i.putExtra("classCreator", classData.getClassCreator());
+            i.putExtra("classCreatorDisplayName", classData.getClassCreatorDisplayName());
+            i.putExtra("classCapacity", String.valueOf(classData.getClassCapacity()));
+            i.putExtra("classMembers", String.valueOf(classData.getClassMembers() == null ? 0 : classData.getClassMembers().size()));
+            i.putExtra("classJoinCode", classData.getClassJoinCode());
+            i.putExtra("classLearningMode", classData.getClassLearningMode());
+            v.getContext().startActivity(i);
         });
     }
 
@@ -62,7 +58,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
         return classDataList.size();
     }
 
-    public class ClassViewHolder extends RecyclerView.ViewHolder {
+    public static class ClassViewHolder extends RecyclerView.ViewHolder {
 
         TextView className;
         TextView classSchedule;
