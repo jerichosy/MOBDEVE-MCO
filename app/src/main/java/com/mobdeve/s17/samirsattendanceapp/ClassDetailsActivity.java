@@ -66,7 +66,7 @@ public class ClassDetailsActivity extends AppCompatActivity {
 
         tvClassName.setText(getIntent().getStringExtra("className"));
         tvClassSchedule.setText(getIntent().getStringExtra("classSchedule"));
-        tvLearningMode.setText("Learning Mode: " + getIntent().getStringExtra("classLearningMode"));
+        tvLearningMode.setText(getIntent().getStringExtra("classLearningMode"));
         tvFaculty.setText(getIntent().getStringExtra("classCreatorDisplayName"));
         tvMembers.setText(getIntent().getStringExtra("classMembers") + " / " + getIntent().getStringExtra("classCapacity"));
         tvJoinCode.setText(getIntent().getStringExtra("classJoinCode"));
