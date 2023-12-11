@@ -24,6 +24,7 @@ import com.mobdeve.s17.samirsattendanceapp.ClassData;
 import com.mobdeve.s17.samirsattendanceapp.TimeParser;
 import com.mobdeve.s17.samirsattendanceapp.databinding.FragmentHomeBinding;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalTime;
@@ -33,6 +34,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class HomeFragment extends Fragment {
@@ -90,7 +92,8 @@ public class HomeFragment extends Fragment {
                             // You can now use this list for your application's purposes
                             for (ClassData item : classList) {
                                 // TODO: Filter based on time
-                                upcomingList.add(item);
+                                if (isUpcoming(item))
+                                    upcomingList.add(item);
                             }
 
                             // Update the data in adapter and notify the adapter for changes.
@@ -113,5 +116,20 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private boolean isUpcoming(ClassData c) {
+        String parsedDays = new TimeParser(c.getClassSchedule()).getSchedDays();
+        String currentDay = new SimpleDateFormat("EEEEE", Locale.US).format(new Date());
+        List<String> days = new ArrayList<>();
+        if (parsedDays.length() == 2) {
+            days.add(parsedDays.substring(0, 1));
+            days.add(parsedDays.substring(1, 2));
+        } else {
+            int idx = parsedDays.indexOf("TH");
+            days.add(parsedDays.substring(idx, idx + 2));
+            days.add(parsedDays.substring(idx == 0 ? 2 : 0, idx == 0 ? 3 : 1));
+        }
+        return days.contains(currentDay);
     }
 }

@@ -34,7 +34,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_upcoming_list"
             android:layout_width="409dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="119dp" />
 
         <TextView
             android:id="@+id/text_class_list"
@@ -49,7 +49,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_class_list"
             android:layout_width="409dp"
-            android:layout_height="219dp" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
