@@ -36,7 +36,6 @@ public class SettingsFragment extends Fragment {
                 new SettingsData("Create Class", ClassCreateActivity.class),
                 new SettingsData("Join Class", ClassJoinActivity.class),
                 new SettingsData("Edit Class", ClassEditActivity.class),
-                new SettingsData("Settings"),
                 new SettingsData("Logout")
         };
         SettingsAdapter adapter = new SettingsAdapter(settingsData); // Initialize your adapter, here an empty list is passed
