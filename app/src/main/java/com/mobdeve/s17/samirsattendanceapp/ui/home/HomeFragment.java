@@ -122,13 +122,8 @@ public class HomeFragment extends Fragment {
         String parsedDays = new TimeParser(c.getClassSchedule()).getSchedDays();
         String currentDay = new SimpleDateFormat("EEEEE", Locale.US).format(new Date());
         List<String> days = new ArrayList<>();
-        if (parsedDays.length() == 2) {
-            days.add(parsedDays.substring(0, 1));
-            days.add(parsedDays.substring(1, 2));
-        } else {
-            int idx = parsedDays.indexOf("TH");
-            days.add(parsedDays.substring(idx, idx + 2));
-            days.add(parsedDays.substring(idx == 0 ? 2 : 0, idx == 0 ? 3 : 1));
+        for (int i = 0; i < parsedDays.length(); i++) {
+            days.add(parsedDays.substring(i, i + 1));
         }
         return days.contains(currentDay);
     }
